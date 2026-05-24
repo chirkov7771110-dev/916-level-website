@@ -1,15 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
-type FormState = {
-  name: string;
-  phone: string;
-  email: string;
-  vehicle: string;
-  service: string;
-  message: string;
-};
+import { useForm, ValidationError } from "@formspree/react";
 
 const SERVICES_OPTIONS = [
   "Ceramic Coating",
@@ -20,53 +11,7 @@ const SERVICES_OPTIONS = [
 ];
 
 export default function Contact() {
-  const [form, setForm] = useState<FormState>({
-    name: "",
-    phone: "",
-    email: "",
-    vehicle: "",
-    service: "",
-    message: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(false);
-    try {
-      const response = await fetch("https://formspree.io/f/mykvpvey", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          phone: form.phone,
-          email: form.email,
-          vehicle: form.vehicle,
-          service: form.service,
-          message: form.message,
-        }),
-      });
-      const data = await response.json();
-      if (response.ok && data.ok !== false) {
-        setSubmitted(true);
-      } else {
-        setError(true);
-      }
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [state, handleSubmit] = useForm("mykvpvey");
 
   return (
     <section
@@ -181,7 +126,7 @@ export default function Contact() {
 
           {/* Right — form */}
           <div>
-            {submitted ? (
+            {state.succeeded ? (
               <div className="border border-[#c0c0c0]/30 bg-[#111111] p-10 flex flex-col items-center justify-center text-center min-h-[400px]" role="status" aria-live="polite">
                 <div className="w-12 h-12 border border-[#c0c0c0] flex items-center justify-center mb-6" aria-hidden="true">
                   <svg className="w-6 h-6 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -198,7 +143,6 @@ export default function Contact() {
                 onSubmit={handleSubmit}
                 className="space-y-5"
                 aria-label="Request a quote for ceramic coating or detailing in Roseville CA"
-                noValidate
               >
                 {/* Name + Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -215,12 +159,11 @@ export default function Contact() {
                       name="name"
                       required
                       autoComplete="name"
-                      value={form.name}
-                      onChange={handleChange}
                       placeholder="Your name"
                       aria-required="true"
                       className="w-full bg-[#111111] border border-[#2a2a2a] text-white placeholder-[#3a3a3a] px-4 py-3 text-sm focus:outline-none focus:border-[#c0c0c0] transition-colors duration-200"
                     />
+                    <ValidationError field="name" prefix="Name" errors={state.errors} className="text-red-400 text-xs mt-1" />
                   </div>
                   <div>
                     <label
@@ -235,12 +178,11 @@ export default function Contact() {
                       name="phone"
                       required
                       autoComplete="tel"
-                      value={form.phone}
-                      onChange={handleChange}
-                      placeholder="(916) 710-1157"
+                      placeholder="(916) 555-0000"
                       aria-required="true"
                       className="w-full bg-[#111111] border border-[#2a2a2a] text-white placeholder-[#3a3a3a] px-4 py-3 text-sm focus:outline-none focus:border-[#c0c0c0] transition-colors duration-200"
                     />
+                    <ValidationError field="phone" prefix="Phone" errors={state.errors} className="text-red-400 text-xs mt-1" />
                   </div>
                 </div>
 
@@ -257,11 +199,10 @@ export default function Contact() {
                     type="email"
                     name="email"
                     autoComplete="email"
-                    value={form.email}
-                    onChange={handleChange}
                     placeholder="your@email.com"
                     className="w-full bg-[#111111] border border-[#2a2a2a] text-white placeholder-[#3a3a3a] px-4 py-3 text-sm focus:outline-none focus:border-[#c0c0c0] transition-colors duration-200"
                   />
+                  <ValidationError field="email" prefix="Email" errors={state.errors} className="text-red-400 text-xs mt-1" />
                 </div>
 
                 {/* Vehicle */}
@@ -277,12 +218,11 @@ export default function Contact() {
                     type="text"
                     name="vehicle"
                     required
-                    value={form.vehicle}
-                    onChange={handleChange}
                     placeholder="Year, Make, Model (e.g. 2022 BMW M3)"
                     aria-required="true"
                     className="w-full bg-[#111111] border border-[#2a2a2a] text-white placeholder-[#3a3a3a] px-4 py-3 text-sm focus:outline-none focus:border-[#c0c0c0] transition-colors duration-200"
                   />
+                  <ValidationError field="vehicle" prefix="Vehicle" errors={state.errors} className="text-red-400 text-xs mt-1" />
                 </div>
 
                 {/* Service */}
@@ -297,16 +237,16 @@ export default function Contact() {
                     id="contact-service"
                     name="service"
                     required
-                    value={form.service}
-                    onChange={handleChange}
+                    defaultValue=""
                     aria-required="true"
                     className="w-full bg-[#111111] border border-[#2a2a2a] text-white px-4 py-3 text-sm focus:outline-none focus:border-[#c0c0c0] transition-colors duration-200 appearance-none cursor-pointer"
                   >
-                    <option value="">Select a service</option>
+                    <option value="" disabled>Select a service</option>
                     {SERVICES_OPTIONS.map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}
                   </select>
+                  <ValidationError field="service" prefix="Service" errors={state.errors} className="text-red-400 text-xs mt-1" />
                 </div>
 
                 {/* Message */}
@@ -320,29 +260,24 @@ export default function Contact() {
                   <textarea
                     id="contact-message"
                     name="message"
-                    value={form.message}
-                    onChange={handleChange}
                     rows={4}
                     placeholder="Any specific concerns, paint issues, or questions..."
                     className="w-full bg-[#111111] border border-[#2a2a2a] text-white placeholder-[#3a3a3a] px-4 py-3 text-sm focus:outline-none focus:border-[#c0c0c0] transition-colors duration-200 resize-none"
                   />
+                  <ValidationError field="message" prefix="Message" errors={state.errors} className="text-red-400 text-xs mt-1" />
                 </div>
 
                 {/* Submit */}
                 <button
                   type="submit"
-                  disabled={loading}
-                  aria-busy={loading}
+                  disabled={state.submitting}
+                  aria-busy={state.submitting}
                   className="w-full py-4 bg-white text-black text-sm font-bold tracking-widest uppercase hover:bg-[#c0c0c0] disabled:opacity-60 transition-colors duration-200"
                 >
-                  {loading ? "Sending..." : "Send Message →"}
+                  {state.submitting ? "Sending..." : "Send Message →"}
                 </button>
 
-                {error && (
-                  <p role="alert" className="text-center text-xs text-red-400">
-                    Something went wrong. Please try again or call us at (916) 710-1157.
-                  </p>
-                )}
+                <ValidationError errors={state.errors} className="text-center text-xs text-red-400" />
 
                 <p className="text-center text-xs text-[#6b6b6b]">
                   We respond within 24 hours. No spam, ever.
