@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:shoppositioner.com)",
+      "WebFetch(domain:mojo-agency.com)",
+      "WebFetch(domain:www.detailersmovement.com)",
+      "WebFetch(domain:groundedgroup.com)",
+      "WebFetch(domain:detailingwebstudio.com)",
+      "WebFetch(domain:www.getjobber.com)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)"
+    ]
+  }
+}
