@@ -46,9 +46,17 @@ export default function Contact() {
       const response = await fetch("https://formspree.io/f/mykvpvey", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          vehicle: form.vehicle,
+          service: form.service,
+          message: form.message,
+        }),
       });
-      if (response.ok) {
+      const data = await response.json();
+      if (response.ok && data.ok !== false) {
         setSubmitted(true);
       } else {
         setError(true);
