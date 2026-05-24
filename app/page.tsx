@@ -1,65 +1,153 @@
-import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import Services from "@/components/Services";
+import Gallery from "@/components/Gallery";
+import About from "@/components/About";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.916level.com/#business",
+      "name": "916Level",
+      "description":
+        "Professional ceramic coating, paint correction, and scratch removal in Roseville, CA. Serving Roseville, Sacramento, and all of Placer County.",
+      "url": "https://www.916level.com",
+      "telephone": "+19167101157",
+      "email": "chirkov7771110@gmail.com",
+      "image": "https://www.916level.com/og-image.jpg",
+      "priceRange": "$$",
+      "currenciesAccepted": "USD",
+      "paymentAccepted": "Cash, Credit Card",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Roseville",
+        "addressRegion": "CA",
+        "postalCode": "95747",
+        "addressCountry": "US",
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 38.7521,
+        "longitude": -121.2880,
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Roseville", "sameAs": "https://en.wikipedia.org/wiki/Roseville,_California" },
+        { "@type": "City", "name": "Sacramento", "sameAs": "https://en.wikipedia.org/wiki/Sacramento,_California" },
+        { "@type": "City", "name": "Rocklin" },
+        { "@type": "City", "name": "Lincoln" },
+        { "@type": "City", "name": "Auburn" },
+        { "@type": "City", "name": "Folsom" },
+        { "@type": "City", "name": "Granite Bay" },
+        { "@type": "City", "name": "Loomis" },
+        { "@type": "AdministrativeArea", "name": "Placer County" },
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "08:00",
+          "closes": "18:00",
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Sunday",
+          "opens": "09:00",
+          "closes": "17:00",
+          "description": "By appointment",
+        },
+      ],
+      "sameAs": [
+        "https://www.instagram.com/916level",
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Auto Detailing Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Ceramic Coating",
+              "description":
+                "Professional ceramic coating application in Roseville, CA. Creates a permanent hydrophobic bond that protects your paint for 2–5 years.",
+              "areaServed": "Roseville, Sacramento, Placer County, CA",
+            },
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Paint Correction",
+              "description":
+                "Machine polishing paint correction service in Roseville, CA. Removes swirl marks, fine scratches, and oxidation to restore factory-level gloss.",
+              "areaServed": "Roseville, Sacramento, Placer County, CA",
+            },
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Scratch Removal",
+              "description":
+                "Professional scratch removal and clear coat repair in Roseville, CA. Eliminates surface scratches without full repaint.",
+              "areaServed": "Roseville, Sacramento, Placer County, CA",
+            },
+          },
+        ],
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.916level.com/#website",
+      "url": "https://www.916level.com",
+      "name": "916Level",
+      "description": "Ceramic Coating & Paint Correction — Roseville, CA",
+      "publisher": { "@id": "https://www.916level.com/#business" },
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.916level.com/#webpage",
+      "url": "https://www.916level.com",
+      "name": "916Level — Ceramic Coating & Paint Correction | Roseville, CA",
+      "isPartOf": { "@id": "https://www.916level.com/#website" },
+      "about": { "@id": "https://www.916level.com/#business" },
+      "description":
+        "916Level is Roseville's premier ceramic coating and paint correction specialist serving Roseville, Sacramento, and Placer County.",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.916level.com",
+          },
+        ],
+      },
+    },
+  ],
+};
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Navbar />
+      <main id="main-content">
+        <Hero />
+        <Services />
+        <Gallery />
+        <About />
+        <Contact />
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
