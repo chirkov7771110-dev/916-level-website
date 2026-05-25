@@ -77,9 +77,9 @@ export default function Contact() {
               </div>
 
               <a
-                href="mailto:chirkov7771110@gmail.com"
+                href="mailto:916levelceramiccoating@gmail.com"
                 className="flex items-center gap-4 group"
-                aria-label="Email 916Level at chirkov7771110@gmail.com"
+                aria-label="Email 916Level at 916levelceramiccoating@gmail.com"
               >
                 <div className="w-11 h-11 border border-[#2a2a2a] flex items-center justify-center group-hover:border-[#c0c0c0] transition-colors duration-200 flex-shrink-0" aria-hidden="true">
                   <svg className="w-4 h-4 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -88,7 +88,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-xs text-[#6b6b6b] tracking-widest uppercase mb-0.5">Email</p>
-                  <p className="text-white font-semibold group-hover:text-[#c0c0c0] transition-colors">chirkov7771110@gmail.com</p>
+                  <p className="text-white font-semibold group-hover:text-[#c0c0c0] transition-colors">916levelceramiccoating@gmail.com</p>
                 </div>
               </a>
 
