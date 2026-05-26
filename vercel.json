@@ -1,3 +1,9 @@
 {
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/google9123920eb0589edc.html",
+      "destination": "/api/gsc-verify"
+    }
+  ]
 }
