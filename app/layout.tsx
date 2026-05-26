@@ -96,7 +96,7 @@ export const metadata: Metadata = {
   },
 
   verification: {
-    google: "",   // add Google Search Console token when available
+    google: "__01tzbAIR0Enh0gEK28s00y6WZGAEwvSV7P5VmzOE0",
   },
 
   category: "automotive",
