@@ -6,19 +6,19 @@ import Image from "next/image";
 export type MediaItem = {
   type: "image" | "video";
   src: string;
-  // "gallery" = /images/gallery photos — shown in All Work, not a separate tab
+  // "gallery" = /images/gallery — shown in All Work only, no dedicated tab
   category: "gallery" | "ceramic" | "correction" | "scratch" | "headlights";
 };
 
 type FilterValue = "all" | "ceramic" | "correction" | "scratch" | "headlights";
 
-const FILTER_LABELS: Record<FilterValue, string> = {
-  all:        "All Work",
-  ceramic:    "Ceramic Coating",
-  correction: "Paint Correction",
-  scratch:    "Scratch Removal",
-  headlights: "Headlight Restoration",
-};
+const TABS: { value: FilterValue; label: string }[] = [
+  { value: "all",        label: "All Work"               },
+  { value: "ceramic",    label: "Ceramic Coating"         },
+  { value: "correction", label: "Paint Correction"        },
+  { value: "scratch",    label: "Scratch Removal"         },
+  { value: "headlights", label: "Headlight Restoration"   },
+];
 
 function VideoCard({ src, label }: { src: string; label: string }) {
   return (
@@ -76,18 +76,24 @@ function labelFromSrc(src: string): string {
     .replace(/_/g, " ");
 }
 
+function EmptyState({ tab }: { tab: string }) {
+  return (
+    <div className="col-span-2 sm:col-span-3 lg:col-span-4 py-16 text-center">
+      <p className="text-[#6b6b6b] text-sm tracking-wide">
+        More {tab.toLowerCase()} photos and videos coming soon.
+      </p>
+    </div>
+  );
+}
+
 export default function GalleryClient({ items }: { items: MediaItem[] }) {
   const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
 
-  // Show a tab only if that category has at least one item
-  const populated = new Set(items.map((i) => i.category));
-  const filters = (Object.keys(FILTER_LABELS) as FilterValue[]).filter(
-    (f) => f === "all" || populated.has(f)
-  );
-
+  // All Work: every item (including gallery photos)
+  // Category tabs: only items matching that exact category
   const visible =
     activeFilter === "all"
-      ? items  // All Work: everything including gallery photos
+      ? items
       : items.filter((i) => i.category === activeFilter);
 
   return (
@@ -118,25 +124,25 @@ export default function GalleryClient({ items }: { items: MediaItem[] }) {
           </p>
         </header>
 
-        {/* Filter tabs */}
+        {/* Filter tabs — always all 5 visible */}
         <div
           role="group"
           aria-label="Filter gallery by service"
           className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-12"
         >
-          {filters.map((f) => (
+          {TABS.map((tab) => (
             <button
-              key={f}
-              onClick={() => setActiveFilter(f)}
-              aria-pressed={activeFilter === f}
-              aria-label={`Show ${FILTER_LABELS[f]}`}
+              key={tab.value}
+              onClick={() => setActiveFilter(tab.value)}
+              aria-pressed={activeFilter === tab.value}
+              aria-label={`Show ${tab.label}`}
               className={`px-4 sm:px-5 py-3 text-xs font-semibold tracking-widest uppercase transition-all duration-200 border ${
-                activeFilter === f
+                activeFilter === tab.value
                   ? "border-[#c0c0c0] text-white bg-[#c0c0c0]/10"
                   : "border-[#2a2a2a] text-[#6b6b6b] hover:border-[#6b6b6b] hover:text-[#a0a0a0]"
               }`}
             >
-              {FILTER_LABELS[f]}
+              {tab.label}
             </button>
           ))}
         </div>
@@ -152,16 +158,19 @@ export default function GalleryClient({ items }: { items: MediaItem[] }) {
         <div
           className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
           role="list"
-          aria-label={`${FILTER_LABELS[activeFilter]} — Roseville CA`}
+          aria-label={`${TABS.find((t) => t.value === activeFilter)!.label} — Roseville CA`}
         >
-          {visible.map((item) => (
-            <div role="listitem" key={item.src}>
-              {item.type === "video"
-                ? <VideoCard src={item.src} label={labelFromSrc(item.src)} />
-                : <PhotoCard src={item.src} label={labelFromSrc(item.src)} />
-              }
-            </div>
-          ))}
+          {visible.length === 0
+            ? <EmptyState tab={TABS.find((t) => t.value === activeFilter)!.label} />
+            : visible.map((item) => (
+                <div role="listitem" key={item.src}>
+                  {item.type === "video"
+                    ? <VideoCard src={item.src} label={labelFromSrc(item.src)} />
+                    : <PhotoCard src={item.src} label={labelFromSrc(item.src)} />
+                  }
+                </div>
+              ))
+          }
         </div>
 
         {/* CTA */}
