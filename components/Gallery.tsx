@@ -241,8 +241,8 @@ export default function Gallery() {
 
         {/* Debug banner — confirms new component is deployed */}
         {isCeramic && (
-          <p className="text-center text-xs font-mono text-green-400 mb-4 tracking-widest">
-            CERAMIC VIDEO VERSION ACTIVE
+          <p className="text-center text-xs font-mono text-green-400 mb-4 tracking-widest" data-version="ceramic-v3">
+            CERAMIC VIDEO VERSION ACTIVE — BUILD 3
           </p>
         )}
 
