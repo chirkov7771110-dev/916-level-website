@@ -169,13 +169,24 @@ function PhotoCard({ src, label, alt }: { src: string; label: string; alt: strin
   );
 }
 
+// Ceramic videos — hardcoded, never falls back to image array
+const CERAMIC_VIDEOS = [
+  { src: "/videos/ceramic/video_2026-05-26_20-49-28.mp4", label: "Ceramic Coating — Gloss Finish",   alt: "Ceramic coating gloss finish — 916Level Roseville CA" },
+  { src: "/videos/ceramic/video_2026-05-26_20-50-08.mp4", label: "Ceramic Coating — Water Beading",  alt: "Hydrophobic ceramic coating water beading — Roseville CA" },
+  { src: "/videos/ceramic/video_2026-05-26_20-50-13.mp4", label: "Ceramic Coating — Deep Shine",     alt: "Ceramic coating deep shine — 916Level" },
+  { src: "/videos/ceramic/video_2026-05-26_20-50-17.mp4", label: "Ceramic Coating — Final Result",   alt: "Ceramic coating completed vehicle — Roseville Sacramento CA" },
+  { src: "/videos/ceramic/video_2026-05-26_20-50-20.mp4", label: "Ceramic Coating — Premium Finish", alt: "Premium ceramic coating finish — 916Level" },
+];
+
 // ─── Gallery section ──────────────────────────────────────────────────────────
 export default function Gallery() {
   const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
 
-  const filtered = MEDIA.filter(
-    (item) => activeFilter === "all" || item.category === activeFilter
-  );
+  // Ceramic tab: ONLY ceramic videos, no fallback to MEDIA array
+  const isCeramic = activeFilter === "ceramic";
+  const filtered = isCeramic
+    ? []
+    : MEDIA.filter((item) => activeFilter === "all" || item.category === activeFilter);
 
   return (
     <section
@@ -205,7 +216,7 @@ export default function Gallery() {
           </p>
         </header>
 
-        {/* Filter tabs — only populated categories shown */}
+        {/* Filter tabs */}
         <div
           role="group"
           aria-label="Filter gallery by service"
@@ -228,21 +239,45 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* Grid */}
-        <div
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
-          role="list"
-          aria-label={`${activeFilter === "all" ? "All detailing work" : activeFilter} gallery — Roseville CA`}
-        >
-          {filtered.map((item) => (
-            <div role="listitem" key={item.src}>
-              {item.type === "video"
-                ? <VideoCard src={item.src} label={item.label} alt={item.alt} />
-                : <PhotoCard src={item.src} label={item.label} alt={item.alt} />
-              }
-            </div>
-          ))}
-        </div>
+        {/* Debug banner — confirms new component is deployed */}
+        {isCeramic && (
+          <p className="text-center text-xs font-mono text-green-400 mb-4 tracking-widest">
+            CERAMIC VIDEO VERSION ACTIVE
+          </p>
+        )}
+
+        {/* Ceramic tab: hardcoded video grid */}
+        {isCeramic && (
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
+            role="list"
+            aria-label="Ceramic coating gallery — Roseville CA"
+          >
+            {CERAMIC_VIDEOS.map((v) => (
+              <div role="listitem" key={v.src}>
+                <VideoCard src={v.src} label={v.label} alt={v.alt} />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* All other tabs */}
+        {!isCeramic && (
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
+            role="list"
+            aria-label={`${activeFilter === "all" ? "All detailing work" : activeFilter} gallery — Roseville CA`}
+          >
+            {filtered.map((item) => (
+              <div role="listitem" key={item.src}>
+                {item.type === "video"
+                  ? <VideoCard src={item.src} label={item.label} alt={item.alt} />
+                  : <PhotoCard src={item.src} label={item.label} alt={item.alt} />
+                }
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* CTA */}
         <div className="mt-12 sm:mt-16 text-center">
