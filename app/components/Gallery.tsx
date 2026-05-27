@@ -11,7 +11,7 @@ type MediaItem = {
   category: "correction" | "scratch";
 };
 
-// Non-ceramic media only — ceramic has its own dedicated constant below
+// Non-ceramic gallery photos/videos — correction and scratch only
 const MEDIA: MediaItem[] = [
   {
     type: "image",
@@ -57,13 +57,19 @@ const MEDIA: MediaItem[] = [
   },
 ];
 
-// Ceramic Coating — hardcoded videos only, never falls back to MEDIA
+// Ceramic Coating — dedicated videos only, never mixed into correction/scratch tabs
 const CERAMIC_VIDEOS = [
   { src: "/videos/ceramic/video_2026-05-26_20-49-28.mp4", label: "Ceramic Coating — Gloss Finish",   alt: "Ceramic coating gloss finish — 916Level Roseville CA" },
   { src: "/videos/ceramic/video_2026-05-26_20-50-08.mp4", label: "Ceramic Coating — Water Beading",  alt: "Hydrophobic ceramic coating water beading — Roseville CA" },
   { src: "/videos/ceramic/video_2026-05-26_20-50-13.mp4", label: "Ceramic Coating — Deep Shine",     alt: "Ceramic coating deep shine — 916Level" },
   { src: "/videos/ceramic/video_2026-05-26_20-50-17.mp4", label: "Ceramic Coating — Final Result",   alt: "Ceramic coating completed vehicle — Roseville Sacramento CA" },
   { src: "/videos/ceramic/video_2026-05-26_20-50-20.mp4", label: "Ceramic Coating — Premium Finish", alt: "Premium ceramic coating finish — 916Level" },
+];
+
+// All Work grid: ceramic videos first, then the rest of MEDIA
+const ALL_ITEMS = [
+  ...CERAMIC_VIDEOS.map((v) => ({ ...v, type: "video" as const })),
+  ...MEDIA,
 ];
 
 const FILTERS = [
@@ -124,10 +130,16 @@ export default function Gallery() {
   const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
 
   const isCeramic = activeFilter === "ceramic";
+  const isAll = activeFilter === "all";
 
-  const filtered = isCeramic
-    ? []
-    : MEDIA.filter((item) => activeFilter === "all" || item.category === activeFilter);
+  // ceramic tab → CERAMIC_VIDEOS only
+  // all tab     → ALL_ITEMS (ceramic videos + correction + scratch)
+  // other tabs  → filter MEDIA by category
+  const items = isCeramic
+    ? CERAMIC_VIDEOS.map((v) => ({ ...v, type: "video" as const }))
+    : isAll
+    ? ALL_ITEMS
+    : MEDIA.filter((item) => item.category === activeFilter);
 
   return (
     <section
@@ -180,45 +192,28 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* Debug label — confirms new component deployed */}
+        {/* Debug label — remove after final confirmation */}
         {isCeramic && (
           <p className="text-center text-xs font-mono text-green-400 mb-4 tracking-widest">
             CERAMIC VIDEO VERSION ACTIVE
           </p>
         )}
 
-        {/* Ceramic Coating — dedicated video grid, zero fallback */}
-        {isCeramic && (
-          <div
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
-            role="list"
-            aria-label="Ceramic coating gallery — Roseville CA"
-          >
-            {CERAMIC_VIDEOS.map((v) => (
-              <div role="listitem" key={v.src}>
-                <VideoCard src={v.src} label={v.label} alt={v.alt} />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* All other tabs */}
-        {!isCeramic && (
-          <div
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
-            role="list"
-            aria-label={`${activeFilter === "all" ? "All detailing work" : activeFilter} gallery — Roseville CA`}
-          >
-            {filtered.map((item) => (
-              <div role="listitem" key={item.src}>
-                {item.type === "video"
-                  ? <VideoCard src={item.src} label={item.label} alt={item.alt} />
-                  : <PhotoCard src={item.src} label={item.label} alt={item.alt} />
-                }
-              </div>
-            ))}
-          </div>
-        )}
+        {/* Media grid */}
+        <div
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
+          role="list"
+          aria-label={`${isAll ? "All detailing work" : activeFilter} gallery — Roseville CA`}
+        >
+          {items.map((item) => (
+            <div role="listitem" key={item.src}>
+              {item.type === "video"
+                ? <VideoCard src={item.src} label={item.label} alt={item.alt} />
+                : <PhotoCard src={item.src} label={item.label} alt={item.alt} />
+              }
+            </div>
+          ))}
+        </div>
 
         {/* CTA */}
         <div className="mt-12 sm:mt-16 text-center">
