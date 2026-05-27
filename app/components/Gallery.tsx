@@ -8,37 +8,17 @@ type MediaItem = {
   src: string;
   label: string;
   alt: string;
-  category: "ceramic" | "correction" | "scratch" | "all";
+  category: "correction" | "scratch";
 };
 
+// Non-ceramic media only — ceramic has its own dedicated constant below
 const MEDIA: MediaItem[] = [
-  {
-    type: "image",
-    src: "/images/gallery/photo_2026-05-23_19-23-35.jpg",
-    label: "Ceramic Coating — Black Sedan",
-    alt: "Ceramic coating applied to black sedan — Roseville, CA",
-    category: "ceramic",
-  },
   {
     type: "image",
     src: "/images/gallery/photo_2026-05-23_19-23-43.jpg",
     label: "Paint Correction — Deep Gloss",
-    alt: "Paint correction result showing deep gloss finish — 916Level Roseville",
+    alt: "Paint correction deep gloss finish result — 916Level Roseville",
     category: "correction",
-  },
-  {
-    type: "image",
-    src: "/images/gallery/photo_2026-05-23_19-23-49.jpg",
-    label: "Scratch Removal — Clear Coat",
-    alt: "Clear coat scratch removal before and after — Placer County auto detailing",
-    category: "scratch",
-  },
-  {
-    type: "image",
-    src: "/images/gallery/photo_2026-05-23_19-23-54.jpg",
-    label: "Ceramic Coating — White SUV",
-    alt: "Ceramic coating on white SUV — professional detailing Roseville CA",
-    category: "ceramic",
   },
   {
     type: "image",
@@ -49,31 +29,10 @@ const MEDIA: MediaItem[] = [
   },
   {
     type: "image",
-    src: "/images/gallery/photo_2026-05-23_19-24-03.jpg",
-    label: "Full Detail — Exterior",
-    alt: "Full exterior detail and paint protection — 916Level Roseville",
-    category: "ceramic",
-  },
-  {
-    type: "image",
-    src: "/images/gallery/photo_2026-05-23_19-24-09.jpg",
-    label: "Ceramic Coating — Dark Blue",
-    alt: "Ceramic coating on dark blue vehicle — Placer County CA",
-    category: "ceramic",
-  },
-  {
-    type: "image",
     src: "/images/gallery/photo_2026-05-23_19-24-13.jpg",
     label: "Paint Correction — Oxidation",
     alt: "Paint oxidation removal and correction — professional detailing Roseville",
     category: "correction",
-  },
-  {
-    type: "video",
-    src: "/images/gallery/video_2026-05-23_19-23-24.mp4",
-    label: "Coating Application",
-    alt: "Ceramic coating application process video — 916Level Roseville CA",
-    category: "ceramic",
   },
   {
     type: "video",
@@ -83,33 +42,42 @@ const MEDIA: MediaItem[] = [
     category: "correction",
   },
   {
-    type: "video",
-    src: "/images/gallery/video_2026-05-23_19-24-17.mp4",
-    label: "Ceramic Coating Result",
-    alt: "Ceramic coating final result and water beading — 916Level",
-    category: "ceramic",
+    type: "image",
+    src: "/images/gallery/photo_2026-05-23_19-23-49.jpg",
+    label: "Scratch Removal — Clear Coat",
+    alt: "Clear coat scratch removal result — Placer County auto detailing",
+    category: "scratch",
   },
   {
-    type: "video",
-    src: "/images/gallery/video_2026-05-23_19-24-21.mp4",
-    label: "Surface Preparation",
-    alt: "Paint surface preparation before ceramic coating — Roseville CA",
-    category: "correction",
+    type: "image",
+    src: "/images/gallery/photo_2026-05-23_19-23-54.jpg",
+    label: "Scratch Removal — Panel Repair",
+    alt: "Scratch removal and panel repair result — 916Level Roseville CA",
+    category: "scratch",
   },
 ];
 
+// Ceramic Coating — hardcoded videos only, never falls back to MEDIA
+const CERAMIC_VIDEOS = [
+  { src: "/videos/ceramic/video_2026-05-26_20-49-28.mp4", label: "Ceramic Coating — Gloss Finish",   alt: "Ceramic coating gloss finish — 916Level Roseville CA" },
+  { src: "/videos/ceramic/video_2026-05-26_20-50-08.mp4", label: "Ceramic Coating — Water Beading",  alt: "Hydrophobic ceramic coating water beading — Roseville CA" },
+  { src: "/videos/ceramic/video_2026-05-26_20-50-13.mp4", label: "Ceramic Coating — Deep Shine",     alt: "Ceramic coating deep shine — 916Level" },
+  { src: "/videos/ceramic/video_2026-05-26_20-50-17.mp4", label: "Ceramic Coating — Final Result",   alt: "Ceramic coating completed vehicle — Roseville Sacramento CA" },
+  { src: "/videos/ceramic/video_2026-05-26_20-50-20.mp4", label: "Ceramic Coating — Premium Finish", alt: "Premium ceramic coating finish — 916Level" },
+];
+
 const FILTERS = [
-  { label: "All Work",        value: "all" },
-  { label: "Ceramic Coating", value: "ceramic" },
-  { label: "Paint Correction", value: "correction" },
-  { label: "Scratch Removal",  value: "scratch" },
+  { label: "All Work",          value: "all"        },
+  { label: "Ceramic Coating",   value: "ceramic"    },
+  { label: "Paint Correction",  value: "correction" },
+  { label: "Scratch Removal",   value: "scratch"    },
 ] as const;
 
 type FilterValue = (typeof FILTERS)[number]["value"];
 
 function VideoCard({ src, label, alt }: { src: string; label: string; alt: string }) {
   return (
-    <figure className="relative aspect-square overflow-hidden bg-[#111111] group cursor-pointer">
+    <figure className="relative aspect-square overflow-hidden bg-[#0a0a0a] group cursor-pointer">
       <video
         src={src}
         autoPlay
@@ -117,12 +85,16 @@ function VideoCard({ src, label, alt }: { src: string; label: string; alt: strin
         muted
         playsInline
         aria-label={alt}
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
       />
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" aria-hidden="true" />
-      <figcaption className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/80 to-transparent">
-        <p className="text-white text-xs font-medium tracking-wide">{label}</p>
-        <span className="text-[#c0c0c0] text-xs" aria-hidden="true">▶ Video</span>
+      <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity" aria-hidden="true">
+        <svg className="w-3 h-3 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </div>
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300" aria-hidden="true" />
+      <figcaption className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/90 to-transparent">
+        <p className="text-white text-xs font-semibold tracking-wide">{label}</p>
       </figcaption>
     </figure>
   );
@@ -130,19 +102,19 @@ function VideoCard({ src, label, alt }: { src: string; label: string; alt: strin
 
 function PhotoCard({ src, label, alt }: { src: string; label: string; alt: string }) {
   return (
-    <figure className="relative aspect-square overflow-hidden bg-[#111111] group cursor-pointer">
+    <figure className="relative aspect-square overflow-hidden bg-[#0a0a0a] group cursor-pointer">
       <Image
         src={src}
         alt={alt}
         fill
-        className="object-cover group-hover:scale-105 transition-transform duration-500"
+        className="object-cover group-hover:scale-105 transition-transform duration-700"
         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         loading="lazy"
       />
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" aria-hidden="true" />
-      <div className="absolute inset-0 border border-transparent group-hover:border-[#c0c0c0]/30 transition-colors duration-300" aria-hidden="true" />
-      <figcaption className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/80 to-transparent">
-        <p className="text-white text-xs font-medium tracking-wide">{label}</p>
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" aria-hidden="true" />
+      <div className="absolute inset-0 border border-transparent group-hover:border-[#c0c0c0]/20 transition-colors duration-300" aria-hidden="true" />
+      <figcaption className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/90 to-transparent">
+        <p className="text-white text-xs font-semibold tracking-wide">{label}</p>
       </figcaption>
     </figure>
   );
@@ -151,9 +123,11 @@ function PhotoCard({ src, label, alt }: { src: string; label: string; alt: strin
 export default function Gallery() {
   const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
 
-  const filtered = MEDIA.filter(
-    (item) => activeFilter === "all" || item.category === activeFilter
-  );
+  const isCeramic = activeFilter === "ceramic";
+
+  const filtered = isCeramic
+    ? []
+    : MEDIA.filter((item) => activeFilter === "all" || item.category === activeFilter);
 
   return (
     <section
@@ -163,7 +137,7 @@ export default function Gallery() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Section header */}
+        {/* Header */}
         <header className="text-center mb-12 sm:mb-16">
           <p className="inline-flex items-center gap-3 mb-4" aria-hidden="true">
             <span className="h-[1px] w-8 bg-[#c0c0c0] block" />
@@ -176,7 +150,7 @@ export default function Gallery() {
             id="gallery-heading"
             className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-4"
           >
-            Ceramic Coating & Detailing Gallery
+            Ceramic Coating &amp; Detailing Gallery
           </h2>
           <p className="text-[#a0a0a0] max-w-xl mx-auto text-base sm:text-lg">
             Real vehicles, real results. See our ceramic coating, paint correction, and scratch removal work across Roseville and Sacramento.
@@ -206,26 +180,47 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* Grid */}
-        <div
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
-          role="list"
-          aria-label={`${activeFilter === "all" ? "All detailing work" : activeFilter} gallery — Roseville CA`}
-        >
-          {filtered.map((item) =>
-            item.type === "video" ? (
-              <div role="listitem" key={item.src}>
-                <VideoCard src={item.src} label={item.label} alt={item.alt} />
-              </div>
-            ) : (
-              <div role="listitem" key={item.src}>
-                <PhotoCard src={item.src} label={item.label} alt={item.alt} />
-              </div>
-            )
-          )}
-        </div>
+        {/* Debug label — confirms new component deployed */}
+        {isCeramic && (
+          <p className="text-center text-xs font-mono text-green-400 mb-4 tracking-widest">
+            CERAMIC VIDEO VERSION ACTIVE
+          </p>
+        )}
 
-        {/* Bottom CTA */}
+        {/* Ceramic Coating — dedicated video grid, zero fallback */}
+        {isCeramic && (
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
+            role="list"
+            aria-label="Ceramic coating gallery — Roseville CA"
+          >
+            {CERAMIC_VIDEOS.map((v) => (
+              <div role="listitem" key={v.src}>
+                <VideoCard src={v.src} label={v.label} alt={v.alt} />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* All other tabs */}
+        {!isCeramic && (
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
+            role="list"
+            aria-label={`${activeFilter === "all" ? "All detailing work" : activeFilter} gallery — Roseville CA`}
+          >
+            {filtered.map((item) => (
+              <div role="listitem" key={item.src}>
+                {item.type === "video"
+                  ? <VideoCard src={item.src} label={item.label} alt={item.alt} />
+                  : <PhotoCard src={item.src} label={item.label} alt={item.alt} />
+                }
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* CTA */}
         <div className="mt-12 sm:mt-16 text-center">
           <p className="text-[#a0a0a0] text-sm mb-6">
             Ready to see results like this on your vehicle?
