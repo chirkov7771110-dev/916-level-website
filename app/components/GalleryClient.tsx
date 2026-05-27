@@ -86,15 +86,30 @@ function EmptyState({ tab }: { tab: string }) {
   );
 }
 
+const ALL_WORK_INITIAL = 6;
+
 export default function GalleryClient({ items }: { items: MediaItem[] }) {
   const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
+  const [allWorkExpanded, setAllWorkExpanded] = useState(false);
 
-  // All Work: every item (including gallery photos)
-  // Category tabs: only items matching that exact category
-  const visible =
+  // Reset collapsed state when switching back to All Work
+  function handleTabClick(value: FilterValue) {
+    setActiveFilter(value);
+    if (value !== "all") setAllWorkExpanded(false);
+  }
+
+  const allItems =
     activeFilter === "all"
       ? items
       : items.filter((i) => i.category === activeFilter);
+
+  // Apply collapse only on All Work tab
+  const visible =
+    activeFilter === "all" && !allWorkExpanded
+      ? allItems.slice(0, ALL_WORK_INITIAL)
+      : allItems;
+
+  const showToggle = activeFilter === "all" && allItems.length > ALL_WORK_INITIAL;
 
   return (
     <section
@@ -133,7 +148,7 @@ export default function GalleryClient({ items }: { items: MediaItem[] }) {
           {TABS.map((tab) => (
             <button
               key={tab.value}
-              onClick={() => setActiveFilter(tab.value)}
+              onClick={() => handleTabClick(tab.value)}
               aria-pressed={activeFilter === tab.value}
               aria-label={`Show ${tab.label}`}
               className={`px-4 sm:px-5 py-3 text-xs font-semibold tracking-widest uppercase transition-all duration-200 border ${
@@ -172,6 +187,19 @@ export default function GalleryClient({ items }: { items: MediaItem[] }) {
               ))
           }
         </div>
+
+        {/* Show More / Show Less — All Work only */}
+        {showToggle && (
+          <div className="mt-8 sm:mt-10 text-center">
+            <button
+              onClick={() => setAllWorkExpanded((v) => !v)}
+              aria-expanded={allWorkExpanded}
+              className="px-8 py-4 border border-[#3a3a3a] text-[#a0a0a0] text-xs font-bold tracking-widest uppercase hover:border-[#c0c0c0] hover:text-white transition-all duration-200"
+            >
+              {allWorkExpanded ? "Show Less ↑" : "Show More Work ↓"}
+            </button>
+          </div>
+        )}
 
         {/* CTA */}
         <div className="mt-12 sm:mt-16 text-center">
