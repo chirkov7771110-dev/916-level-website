@@ -33,20 +33,20 @@ export default function Gallery() {
   // /images/gallery/ → All Work only, no dedicated tab
   const galleryAll     = readFolder(path.join(pub, "images", "gallery"),          "/images/gallery",          "gallery");
 
-  // Ceramic Coating: /videos/ceramic only
-  const ceramic        = readFolder(path.join(pub, "videos", "ceramic"),           "/videos/ceramic",          "ceramic");
+  // Ceramic Coating: /videos/ceramic-coating only
+  const ceramic        = readFolder(path.join(pub, "videos", "ceramic-coating"),          "/videos/ceramic-coating",          "ceramic");
 
   // Paint Correction: images + videos
-  const correctionImgs = readFolder(path.join(pub, "images", "correction"),        "/images/correction",       "correction");
-  const correctionVids = readFolder(path.join(pub, "videos", "paint-correction"),  "/videos/paint-correction", "correction");
+  const correctionImgs = readFolder(path.join(pub, "images", "paint-correction"),        "/images/paint-correction",         "correction");
+  const correctionVids = readFolder(path.join(pub, "videos", "paint-correction"),        "/videos/paint-correction",         "correction");
 
   // Scratch Removal: images + videos
-  const scratchImgs    = readFolder(path.join(pub, "images", "scratch"),           "/images/scratch",          "scratch");
-  const scratchVids    = readFolder(path.join(pub, "videos", "scratch"),           "/videos/scratch",          "scratch");
+  const scratchImgs    = readFolder(path.join(pub, "images", "scratch-removal"),         "/images/scratch-removal",          "scratch");
+  const scratchVids    = readFolder(path.join(pub, "videos", "scratch-removal"),         "/videos/scratch-removal",          "scratch");
 
   // Headlight Restoration: images + videos
-  const headlightImgs  = readFolder(path.join(pub, "images", "headlights"),        "/images/headlights",       "headlights");
-  const headlightVids  = readFolder(path.join(pub, "videos", "headlights"),        "/videos/headlights",       "headlights");
+  const headlightImgs  = readFolder(path.join(pub, "images", "headlight-restoration"),   "/images/headlight-restoration",    "headlights");
+  const headlightVids  = readFolder(path.join(pub, "videos", "headlight-restoration"),   "/videos/headlight-restoration",    "headlights");
 
   // All Work: gallery photos + every categorised item
   const items: MediaItem[] = [
