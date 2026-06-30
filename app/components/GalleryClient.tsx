@@ -162,13 +162,6 @@ export default function GalleryClient({ items }: { items: MediaItem[] }) {
           ))}
         </div>
 
-        {/* Debug label — remove after final confirmation */}
-        {activeFilter === "ceramic" && (
-          <p className="text-center text-xs font-mono text-green-400 mb-4 tracking-widest">
-            FOLDER-BASED GALLERY ACTIVE
-          </p>
-        )}
-
         {/* Media grid */}
         <div
           className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
