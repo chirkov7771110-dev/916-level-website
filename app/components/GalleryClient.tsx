@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 
 export type MediaItem = {
@@ -20,9 +20,20 @@ const TABS: { value: FilterValue; label: string }[] = [
   { value: "headlights", label: "Headlight Restoration"   },
 ];
 
-function VideoCard({ src, label }: { src: string; label: string }) {
+function labelFromSrc(src: string): string {
+  return src
+    .split("/")
+    .pop()!
+    .replace(/\.[^.]+$/, "")
+    .replace(/_/g, " ");
+}
+
+function VideoCard({ src, label, onClick }: { src: string; label: string; onClick: () => void }) {
   return (
-    <figure className="relative aspect-square overflow-hidden bg-[#0a0a0a] group cursor-pointer">
+    <figure
+      className="relative aspect-square overflow-hidden bg-[#0a0a0a] group cursor-pointer"
+      onClick={onClick}
+    >
       <video
         src={src}
         autoPlay
@@ -48,9 +59,12 @@ function VideoCard({ src, label }: { src: string; label: string }) {
   );
 }
 
-function PhotoCard({ src, label }: { src: string; label: string }) {
+function PhotoCard({ src, label, onClick }: { src: string; label: string; onClick: () => void }) {
   return (
-    <figure className="relative aspect-square overflow-hidden bg-[#0a0a0a] group cursor-pointer">
+    <figure
+      className="relative aspect-square overflow-hidden bg-[#0a0a0a] group cursor-pointer"
+      onClick={onClick}
+    >
       <Image
         src={src}
         alt={label}
@@ -68,14 +82,6 @@ function PhotoCard({ src, label }: { src: string; label: string }) {
   );
 }
 
-function labelFromSrc(src: string): string {
-  return src
-    .split("/")
-    .pop()!
-    .replace(/\.[^.]+$/, "")
-    .replace(/_/g, " ");
-}
-
 function EmptyState({ tab }: { tab: string }) {
   return (
     <div className="col-span-2 sm:col-span-3 lg:col-span-4 py-16 text-center">
@@ -86,13 +92,134 @@ function EmptyState({ tab }: { tab: string }) {
   );
 }
 
+function Lightbox({
+  items,
+  index,
+  onClose,
+  onPrev,
+  onNext,
+}: {
+  items: MediaItem[];
+  index: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  const item = items[index];
+  const touchStartX = useRef<number | null>(null);
+
+  // Keyboard navigation + Esc
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape")     onClose();
+      if (e.key === "ArrowLeft")  onPrev();
+      if (e.key === "ArrowRight") onNext();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, onPrev, onNext]);
+
+  // Lock body scroll while open
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+
+  function onTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0].clientX;
+  }
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (dx < -50) onNext();
+    if (dx >  50) onPrev();
+    touchStartX.current = null;
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+      onClick={onClose}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      aria-modal="true"
+      role="dialog"
+      aria-label="Media viewer"
+    >
+      {/* Close */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white text-2xl bg-black/50 hover:bg-black/80 transition-colors z-10"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+
+      {/* Prev */}
+      {index > 0 && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onPrev(); }}
+          className="absolute left-2 sm:left-6 w-10 h-10 flex items-center justify-center text-white text-xl bg-black/50 hover:bg-black/80 transition-colors z-10"
+          aria-label="Previous"
+        >
+          ←
+        </button>
+      )}
+
+      {/* Next */}
+      {index < items.length - 1 && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onNext(); }}
+          className="absolute right-2 sm:right-6 w-10 h-10 flex items-center justify-center text-white text-xl bg-black/50 hover:bg-black/80 transition-colors z-10"
+          aria-label="Next"
+        >
+          →
+        </button>
+      )}
+
+      {/* Media */}
+      <div
+        className="relative max-w-[95vw] max-h-[90vh] w-full flex items-center justify-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {item.type === "video" ? (
+          <video
+            key={item.src}
+            src={item.src}
+            controls
+            playsInline
+            className="max-w-full max-h-[90vh] w-auto h-auto"
+            aria-label={labelFromSrc(item.src)}
+          />
+        ) : (
+          <div className="relative w-[95vw] h-[90vh]">
+            <Image
+              src={item.src}
+              alt={labelFromSrc(item.src)}
+              fill
+              className="object-contain"
+              sizes="95vw"
+              priority
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Counter */}
+      <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[#a0a0a0] text-xs tracking-widest">
+        {index + 1} / {items.length}
+      </p>
+    </div>
+  );
+}
+
 const ALL_WORK_INITIAL = 6;
 
 export default function GalleryClient({ items }: { items: MediaItem[] }) {
   const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
   const [allWorkExpanded, setAllWorkExpanded] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  // Reset collapsed state when switching back to All Work
   function handleTabClick(value: FilterValue) {
     setActiveFilter(value);
     if (value !== "all") setAllWorkExpanded(false);
@@ -103,13 +230,24 @@ export default function GalleryClient({ items }: { items: MediaItem[] }) {
       ? items
       : items.filter((i) => i.category === activeFilter);
 
-  // Apply collapse only on All Work tab
   const visible =
     activeFilter === "all" && !allWorkExpanded
       ? allItems.slice(0, ALL_WORK_INITIAL)
       : allItems;
 
   const showToggle = activeFilter === "all" && allItems.length > ALL_WORK_INITIAL;
+
+  // Lightbox navigates over allItems (full list, not collapsed visible)
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+  const prevItem = useCallback(() => setLightboxIndex((i) => (i !== null && i > 0 ? i - 1 : i)), []);
+  const nextItem = useCallback(() => setLightboxIndex((i) => (i !== null && i < allItems.length - 1 ? i + 1 : i)), [allItems.length]);
+
+  function openLightbox(visibleIndex: number) {
+    // Map from visible index back to allItems index
+    const src = visible[visibleIndex].src;
+    const fullIndex = allItems.findIndex((it) => it.src === src);
+    setLightboxIndex(fullIndex !== -1 ? fullIndex : visibleIndex);
+  }
 
   return (
     <section
@@ -139,7 +277,7 @@ export default function GalleryClient({ items }: { items: MediaItem[] }) {
           </p>
         </header>
 
-        {/* Filter tabs — always all 5 visible */}
+        {/* Filter tabs */}
         <div
           role="group"
           aria-label="Filter gallery by service"
@@ -170,18 +308,18 @@ export default function GalleryClient({ items }: { items: MediaItem[] }) {
         >
           {visible.length === 0
             ? <EmptyState tab={TABS.find((t) => t.value === activeFilter)!.label} />
-            : visible.map((item) => (
+            : visible.map((item, i) => (
                 <div role="listitem" key={item.src}>
                   {item.type === "video"
-                    ? <VideoCard src={item.src} label={labelFromSrc(item.src)} />
-                    : <PhotoCard src={item.src} label={labelFromSrc(item.src)} />
+                    ? <VideoCard src={item.src} label={labelFromSrc(item.src)} onClick={() => openLightbox(i)} />
+                    : <PhotoCard src={item.src} label={labelFromSrc(item.src)} onClick={() => openLightbox(i)} />
                   }
                 </div>
               ))
           }
         </div>
 
-        {/* Show More / Show Less — All Work only */}
+        {/* Show More / Show Less */}
         {showToggle && (
           <div className="mt-8 sm:mt-10 text-center">
             <button
@@ -208,6 +346,17 @@ export default function GalleryClient({ items }: { items: MediaItem[] }) {
           </button>
         </div>
       </div>
+
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <Lightbox
+          items={allItems}
+          index={lightboxIndex}
+          onClose={closeLightbox}
+          onPrev={prevItem}
+          onNext={nextItem}
+        />
+      )}
     </section>
   );
 }
