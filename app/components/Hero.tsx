@@ -50,7 +50,7 @@ export default function Hero() {
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#c0c0c0]/60 to-transparent z-10" aria-hidden="true" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-40 sm:pt-32 sm:pb-40 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 sm:pt-32 sm:pb-24 text-center">
 
         {/* Eyebrow — location signal for local SEO */}
         <p className="inline-flex items-center gap-3 mb-6 sm:mb-8" aria-label="Service location">
