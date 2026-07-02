@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
 const SERVICES_OPTIONS = [
@@ -12,6 +13,19 @@ const SERVICES_OPTIONS = [
 
 export default function Contact() {
   const [state, handleSubmit] = useForm("xlgvlvzv");
+  const localTimeRef = useRef<HTMLInputElement>(null);
+
+  function handleSubmitWithTime(e: React.FormEvent<HTMLFormElement>) {
+    if (localTimeRef.current) {
+      const now = new Date();
+      const time = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Los_Angeles" });
+      const day = now.toLocaleDateString("en-US", { day: "numeric", timeZone: "America/Los_Angeles" });
+      const month = now.toLocaleDateString("en-US", { month: "long", timeZone: "America/Los_Angeles" });
+      const year = now.toLocaleDateString("en-US", { year: "numeric", timeZone: "America/Los_Angeles" });
+      localTimeRef.current.value = `Submitted ${time} - ${day} ${month} ${year}`;
+    }
+    handleSubmit(e);
+  }
 
   return (
     <section
@@ -140,7 +154,7 @@ export default function Contact() {
               </div>
             ) : (
               <form
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmitWithTime}
                 className="space-y-5"
                 aria-label="Request a quote for ceramic coating or detailing in Roseville CA"
               >
@@ -266,6 +280,8 @@ export default function Contact() {
                   />
                   <ValidationError field="message" prefix="Message" errors={state.errors} className="text-red-400 text-xs mt-1" />
                 </div>
+
+                <input type="hidden" name="local_time" ref={localTimeRef} />
 
                 {/* Submit */}
                 <button
