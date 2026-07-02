@@ -134,6 +134,12 @@ export default function Services() {
                   >
                     {service.title}
                   </h3>
+                  {service.id === "ceramic" && (
+                    <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase text-[#6b6b6b] border border-[#2a2a2a] px-2.5 py-1">
+                      <span className="w-1 h-1 rounded-full bg-[#c0c0c0]" aria-hidden="true" />
+                      Professional System X Ceramic Coatings
+                    </p>
+                  )}
                 </div>
 
                 {/* Description */}
