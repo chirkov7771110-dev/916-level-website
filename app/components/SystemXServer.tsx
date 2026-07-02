@@ -5,7 +5,7 @@ import SystemX from "./SystemX";
 const IMAGE_EXTS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 
 export default function SystemXServer() {
-  const folder = path.join(process.cwd(), "app", "public", "images", "system-x");
+  const folder = path.join(process.cwd(), "public", "images", "system-x");
   let images: string[] = [];
 
   if (fs.existsSync(folder)) {
