@@ -64,10 +64,10 @@ const SERVICES = [
 ];
 
 const STATS = [
-  { value: "500+", label: "Vehicles Coated" },
-  { value: "5.0★", label: "Google Rating" },
-  { value: "100%", label: "Satisfaction Rate" },
-  { value: "8 yr",  label: "Max Coating Life" },
+  { value: "500+",       label: "Vehicles Serviced" },
+  { value: "Free",       label: "Photo Estimates" },
+  { value: "Placer County", label: "Service Area" },
+  { value: "8 yr",       label: "Max Coating Life" },
 ];
 
 export default function Services() {

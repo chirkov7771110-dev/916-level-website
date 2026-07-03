@@ -97,10 +97,10 @@ export default function Hero() {
         {/* Trust badges */}
         <ul className="flex flex-wrap items-center justify-center gap-6 sm:gap-10" role="list" aria-label="Business credentials">
           {[
-            { icon: "★", label: "5.0 Google Rating" },
-            { icon: "✦", label: "Placer County" },
-            { icon: "◈", label: "Licensed & Insured" },
-            { icon: "◉", label: "Satisfaction Guarantee" },
+            { icon: "◎", label: "Photo Estimates Available" },
+            { icon: "✦", label: "Roseville & Sacramento" },
+            { icon: "◈", label: "Paint Correction Focus" },
+            { icon: "◉", label: "Ceramic Protection" },
           ].map((badge) => (
             <li key={badge.label} className="flex items-center gap-2">
               <span className="text-[#c0c0c0] text-sm" aria-hidden="true">{badge.icon}</span>
