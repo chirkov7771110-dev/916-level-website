@@ -9,7 +9,7 @@ const SERVICES = [
     description:
       "A professional-grade nano-ceramic layer permanently bonds to your paint, creating a hydrophobic shield that repels water, dirt, and UV rays. Keeps your car looking new for years.",
     features: [
-      "2–5 year protection",
+      "2–8 year protection",
       "Hydrophobic water beading",
       "UV & oxidation resistance",
       "Enhanced gloss & depth",
@@ -67,7 +67,7 @@ const STATS = [
   { value: "500+", label: "Vehicles Coated" },
   { value: "5.0★", label: "Google Rating" },
   { value: "100%", label: "Satisfaction Rate" },
-  { value: "5 yr",  label: "Max Coating Life" },
+  { value: "8 yr",  label: "Max Coating Life" },
 ];
 
 export default function Services() {
