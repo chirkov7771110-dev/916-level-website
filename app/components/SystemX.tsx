@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 const FEATURES = [
@@ -11,10 +11,26 @@ const FEATURES = [
   "Automotive, Marine & Aviation solutions",
 ];
 
-function ImageLightbox({ src, onClose }: { src: string; onClose: () => void }) {
+function ImageLightbox({
+  images,
+  index,
+  onClose,
+}: {
+  images: string[];
+  index: number;
+  onClose: () => void;
+}) {
+  const [current, setCurrent] = useState(index);
+  const total = images.length;
+
+  const prev = useCallback(() => setCurrent((i) => (i > 0 ? i - 1 : i)), []);
+  const next = useCallback(() => setCurrent((i) => (i < total - 1 ? i + 1 : i)), [total]);
+
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape")     onClose();
+      if (e.key === "ArrowLeft")  prev();
+      if (e.key === "ArrowRight") next();
     }
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
@@ -22,16 +38,17 @@ function ImageLightbox({ src, onClose }: { src: string; onClose: () => void }) {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
-  }, [onClose]);
+  }, [onClose, prev, next]);
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/92"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
       onClick={onClose}
       aria-modal="true"
       role="dialog"
       aria-label="System X product image"
     >
+      {/* Close */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white text-xl bg-black/50 hover:bg-black/80 transition-colors z-10"
@@ -39,25 +56,57 @@ function ImageLightbox({ src, onClose }: { src: string; onClose: () => void }) {
       >
         ✕
       </button>
+
+      {/* Prev */}
+      {current > 0 && (
+        <button
+          onClick={(e) => { e.stopPropagation(); prev(); }}
+          className="absolute left-3 sm:left-6 w-11 h-11 flex items-center justify-center text-white text-2xl bg-black/50 hover:bg-black/80 transition-colors z-10"
+          aria-label="Previous image"
+        >
+          ←
+        </button>
+      )}
+
+      {/* Next */}
+      {current < total - 1 && (
+        <button
+          onClick={(e) => { e.stopPropagation(); next(); }}
+          className="absolute right-3 sm:right-6 w-11 h-11 flex items-center justify-center text-white text-2xl bg-black/50 hover:bg-black/80 transition-colors z-10"
+          aria-label="Next image"
+        >
+          →
+        </button>
+      )}
+
+      {/* Image — full screen */}
       <div
-        className="relative max-w-[92vw] max-h-[88vh]"
+        className="relative w-[97vw] h-[95vh]"
         onClick={(e) => e.stopPropagation()}
       >
         <Image
-          src={src}
+          key={images[current]}
+          src={images[current]}
           alt="System X ceramic coating product"
-          width={1200}
-          height={800}
-          className="object-contain max-h-[88vh] w-auto"
+          fill
+          className="object-contain"
+          sizes="97vw"
           priority
         />
       </div>
+
+      {/* Counter */}
+      {total > 1 && (
+        <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[#a0a0a0] text-xs tracking-widest">
+          {current + 1} / {total}
+        </p>
+      )}
     </div>
   );
 }
 
 export default function SystemX({ images }: { images: string[] }) {
-  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   if (images.length === 0) return null;
 
@@ -111,10 +160,10 @@ export default function SystemX({ images }: { images: string[] }) {
           role="list"
           aria-label="System X product images"
         >
-          {images.map((src) => (
+          {images.map((src, i) => (
             <div role="listitem" key={src}>
               <button
-                onClick={() => setLightboxSrc(src)}
+                onClick={() => setLightboxIndex(i)}
                 className="w-full group relative aspect-[4/3] overflow-hidden bg-[#111111] border border-[#2a2a2a] hover:border-[#c0c0c0]/40 transition-all duration-300 block"
                 aria-label="View larger image"
               >
@@ -135,8 +184,8 @@ export default function SystemX({ images }: { images: string[] }) {
 
       </div>
 
-      {lightboxSrc && (
-        <ImageLightbox src={lightboxSrc} onClose={() => setLightboxSrc(null)} />
+      {lightboxIndex !== null && (
+        <ImageLightbox images={images} index={lightboxIndex} onClose={() => setLightboxIndex(null)} />
       )}
     </section>
   );
