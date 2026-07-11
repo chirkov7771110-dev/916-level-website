@@ -114,8 +114,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-xs text-[#6b6b6b] tracking-widest uppercase mb-0.5">Hours</p>
-                  <p className="text-white font-semibold">Mon – Sat: 8am – 7pm</p>
-                  <p className="text-[#a0a0a0] text-sm">Sunday: By appointment</p>
+                  <p className="text-white font-semibold">Mon – Sun: 9am – 7pm</p>
                 </div>
               </div>
             </address>
