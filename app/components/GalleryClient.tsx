@@ -213,7 +213,7 @@ function Lightbox({
   );
 }
 
-const ALL_WORK_INITIAL = 6;
+const ALL_WORK_INITIAL = 8;
 
 export default function GalleryClient({ items }: { items: MediaItem[] }) {
   const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
