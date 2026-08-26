@@ -109,6 +109,77 @@ const STATS = [
   { value: "8 yr",       label: "Max Coating Life" },
 ];
 
+function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
+  return (
+    <article
+      role="listitem"
+      aria-labelledby={`service-title-${service.id}`}
+      className="group relative flex flex-col border border-[#2a2a2a] bg-[#111111] hover:border-[#c0c0c0]/40 transition-all duration-300 overflow-hidden"
+    >
+      {/* Top silver accent line on hover */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#c0c0c0] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
+
+      {/* Card content */}
+      <div className="p-8 flex flex-col gap-6 flex-1">
+        {/* Number + icon row */}
+        <div className="flex items-start justify-between" aria-hidden="true">
+          <span className="text-[#2a2a2a] text-5xl font-black leading-none select-none">
+            {service.number}
+          </span>
+          <div className="text-[#c0c0c0] group-hover:text-white transition-colors duration-200">
+            {service.icon}
+          </div>
+        </div>
+
+        {/* Title */}
+        <div>
+          <p className="text-[#c0c0c0] text-xs font-semibold tracking-[0.25em] uppercase mb-1">
+            {service.tagline}
+          </p>
+          <h3
+            id={`service-title-${service.id}`}
+            className="text-white text-2xl font-bold tracking-tight"
+          >
+            {service.title}
+          </h3>
+          {service.id === "ceramic" && (
+            <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase text-[#6b6b6b] border border-[#2a2a2a] px-2.5 py-1">
+              <span className="w-1 h-1 rounded-full bg-[#c0c0c0]" aria-hidden="true" />
+              Professional System X Ceramic Coatings
+            </p>
+          )}
+        </div>
+
+        {/* Description */}
+        <p className="text-[#a0a0a0] text-sm leading-relaxed flex-1">
+          {service.description}
+        </p>
+
+        {/* Features list */}
+        <ul className="flex flex-col gap-2" aria-label={`${service.title} features`}>
+          {service.features.map((feat) => (
+            <li key={feat} className="flex items-center gap-2 text-sm text-[#a0a0a0]">
+              <span className="w-1 h-1 rounded-full bg-[#c0c0c0] flex-shrink-0" aria-hidden="true" />
+              {feat}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* CTA */}
+      <div className="px-8 pb-8">
+        <button
+          onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+          aria-label={`Get a quote for ${service.title} in Roseville, CA`}
+          className="w-full py-3 border border-[#2a2a2a] group-hover:border-[#c0c0c0] text-[#a0a0a0] group-hover:text-white text-sm font-semibold tracking-widest uppercase transition-all duration-200"
+        >
+          Get a Quote →
+        </button>
+      </div>
+    </article>
+  );
+}
+
 export default function Services() {
   return (
     <section
@@ -140,74 +211,15 @@ export default function Services() {
 
         {/* Service cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8" role="list">
-          {SERVICES.map((service) => (
-            <article
-              key={service.id}
-              role="listitem"
-              aria-labelledby={`service-title-${service.id}`}
-              className="group relative flex flex-col border border-[#2a2a2a] bg-[#111111] hover:border-[#c0c0c0]/40 transition-all duration-300 overflow-hidden"
-            >
-              {/* Top silver accent line on hover */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#c0c0c0] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
+          {SERVICES.slice(0, 3).map((service) => (
+            <ServiceCard key={service.id} service={service} />
+          ))}
+        </div>
 
-              {/* Card content */}
-              <div className="p-8 flex flex-col gap-6 flex-1">
-                {/* Number + icon row */}
-                <div className="flex items-start justify-between" aria-hidden="true">
-                  <span className="text-[#2a2a2a] text-5xl font-black leading-none select-none">
-                    {service.number}
-                  </span>
-                  <div className="text-[#c0c0c0] group-hover:text-white transition-colors duration-200">
-                    {service.icon}
-                  </div>
-                </div>
-
-                {/* Title */}
-                <div>
-                  <p className="text-[#c0c0c0] text-xs font-semibold tracking-[0.25em] uppercase mb-1">
-                    {service.tagline}
-                  </p>
-                  <h3
-                    id={`service-title-${service.id}`}
-                    className="text-white text-2xl font-bold tracking-tight"
-                  >
-                    {service.title}
-                  </h3>
-                  {service.id === "ceramic" && (
-                    <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.2em] uppercase text-[#6b6b6b] border border-[#2a2a2a] px-2.5 py-1">
-                      <span className="w-1 h-1 rounded-full bg-[#c0c0c0]" aria-hidden="true" />
-                      Professional System X Ceramic Coatings
-                    </p>
-                  )}
-                </div>
-
-                {/* Description */}
-                <p className="text-[#a0a0a0] text-sm leading-relaxed flex-1">
-                  {service.description}
-                </p>
-
-                {/* Features list */}
-                <ul className="flex flex-col gap-2" aria-label={`${service.title} features`}>
-                  {service.features.map((feat) => (
-                    <li key={feat} className="flex items-center gap-2 text-sm text-[#a0a0a0]">
-                      <span className="w-1 h-1 rounded-full bg-[#c0c0c0] flex-shrink-0" aria-hidden="true" />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* CTA */}
-              <div className="px-8 pb-8">
-                <button
-                  onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-                  aria-label={`Get a quote for ${service.title} in Roseville, CA`}
-                  className="w-full py-3 border border-[#2a2a2a] group-hover:border-[#c0c0c0] text-[#a0a0a0] group-hover:text-white text-sm font-semibold tracking-widest uppercase transition-all duration-200"
-                >
-                  Get a Quote →
-                </button>
-              </div>
-            </article>
+        {/* Additional services — full-width row, split 50/50 on desktop */}
+        <div className="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8" role="list">
+          {SERVICES.slice(3).map((service) => (
+            <ServiceCard key={service.id} service={service} />
           ))}
         </div>
 
