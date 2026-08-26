@@ -118,6 +118,16 @@ const jsonLd = {
               "areaServed": "Roseville, Sacramento, Placer County, CA",
             },
           },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "3-Stage Paint Correction",
+              "description":
+                "Multi-stage paint correction in Roseville, CA designed to remove or significantly reduce deeper scratches, swirl marks, oxidation, and clear-coat defects while restoring clarity, depth, and gloss.",
+              "areaServed": "Roseville, Sacramento, Placer County, CA",
+            },
+          },
         ],
       },
     },

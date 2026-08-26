@@ -9,6 +9,7 @@ const SERVICES_OPTIONS = [
   "Scratch Removal",
   "Headlight Restoration",
   "One-Step Polish",
+  "3-Stage Paint Correction",
   "Other",
 ];
 

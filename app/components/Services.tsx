@@ -100,6 +100,26 @@ const SERVICES = [
       </svg>
     ),
   },
+  {
+    id: "three-stage",
+    number: "06",
+    title: "3-Stage Paint Correction",
+    tagline: "Maximum Paint Correction",
+    description:
+      "A multi-stage correction process designed to remove or significantly reduce deeper scratches, swirl marks, oxidation, and other clear-coat defects while restoring maximum clarity, depth, and gloss.",
+    features: [
+      "3-stage correction process",
+      "Deep swirl & scratch reduction",
+      "Oxidation & defect removal",
+      "Maximum clarity & gloss",
+      "Ceramic coating preparation",
+    ],
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3l8 4-8 4-8-4 8-4zM4 11l8 4 8-4M4 15l8 4 8-4" />
+      </svg>
+    ),
+  },
 ];
 
 const STATS = [
@@ -211,14 +231,7 @@ export default function Services() {
 
         {/* Service cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8" role="list">
-          {SERVICES.slice(0, 3).map((service) => (
-            <ServiceCard key={service.id} service={service} />
-          ))}
-        </div>
-
-        {/* Additional services — full-width row, split 50/50 on desktop */}
-        <div className="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8" role="list">
-          {SERVICES.slice(3).map((service) => (
+          {SERVICES.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
