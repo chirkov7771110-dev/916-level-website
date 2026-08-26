@@ -91,6 +91,26 @@ const jsonLd = {
               "areaServed": "Roseville, Sacramento, Placer County, CA",
             },
           },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Headlight Restoration",
+              "description":
+                "Professional headlight restoration in Roseville, CA. Wet-sanding and polishing removes external oxidation and cloudiness to restore lens clarity, backed by a 6-month guarantee.",
+              "areaServed": "Roseville, Sacramento, Placer County, CA",
+            },
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "One-Step Polish",
+              "description":
+                "Single-stage machine polish in Roseville, CA that boosts gloss and reduces light paint imperfections.",
+              "areaServed": "Roseville, Sacramento, Placer County, CA",
+            },
+          },
         ],
       },
     },

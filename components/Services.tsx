@@ -61,6 +61,45 @@ const SERVICES = [
       </svg>
     ),
   },
+  {
+    id: "headlights",
+    number: "04",
+    title: "Headlight Restoration",
+    tagline: "Clear the Fog. Restore the Beam.",
+    description:
+      "Oxidized, foggy headlights don't just look bad — they cut your visibility at night. We wet-sand and polish the outer lens surface to remove or significantly reduce external oxidation and cloudiness, restoring lens clarity.",
+    features: [
+      "Wet-sand & polish process",
+      "Removes external oxidation & cloudiness",
+      "Restores lens clarity",
+      "6-month guarantee",
+      "Ceramic headlight protection available",
+    ],
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10l9-6 9 6M4 10v9a1 1 0 001 1h4v-6h6v6h4a1 1 0 001-1v-9M9 14h1.5" />
+      </svg>
+    ),
+  },
+  {
+    id: "onestep",
+    number: "05",
+    title: "One-Step Polish",
+    tagline: "Enhanced Gloss, Single Stage",
+    description:
+      "A single-stage machine polish that boosts gloss and reduces light paint imperfections.",
+    features: [
+      "Single-stage machine polish",
+      "Enhanced gloss & shine",
+      "Reduces light paint imperfections",
+      "Machine-applied",
+    ],
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636M12 8a4 4 0 100 8 4 4 0 000-8z" />
+      </svg>
+    ),
+  },
 ];
 
 const STATS = [
