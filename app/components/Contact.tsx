@@ -7,7 +7,8 @@ const SERVICES_OPTIONS = [
   "Ceramic Coating",
   "Paint Correction",
   "Scratch Removal",
-  "Full Detail Package",
+  "Headlight Restoration",
+  "One-Step Polish",
   "Other",
 ];
 

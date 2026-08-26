@@ -12,7 +12,7 @@ const SITE_URL = "https://www.916level.com";
 const BUSINESS_NAME = "916Level";
 const TITLE = "916Level — Ceramic Coating & Paint Correction | Roseville, CA";
 const DESCRIPTION =
-  "916Level is Roseville's premier ceramic coating and paint correction specialist. Professional ceramic coating, paint correction, and scratch removal serving Roseville, Sacramento, and all of Placer County. Call (916) 710-1157 for a free quote.";
+  "916Level — ceramic coating, paint correction, scratch removal & headlight restoration in Roseville, CA. Serving Sacramento & Placer County. Free quote.";
 
 export const viewport: Viewport = {
   width: "device-width",

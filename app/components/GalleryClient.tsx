@@ -28,6 +28,18 @@ function labelFromSrc(src: string): string {
     .replace(/_/g, " ");
 }
 
+const CATEGORY_LABEL: Record<MediaItem["category"], string> = {
+  ceramic: "Ceramic coating",
+  correction: "Paint correction",
+  scratch: "Scratch removal",
+  headlights: "Headlight restoration",
+  gallery: "916Level detailing",
+};
+
+function labelFromCategory(category: MediaItem["category"]): string {
+  return `${CATEGORY_LABEL[category]} work — Roseville, CA`;
+}
+
 function VideoCard({ src, label, onClick }: { src: string; label: string; onClick: () => void }) {
   return (
     <figure
@@ -311,8 +323,8 @@ export default function GalleryClient({ items }: { items: MediaItem[] }) {
             : visible.map((item, i) => (
                 <div role="listitem" key={item.src}>
                   {item.type === "video"
-                    ? <VideoCard src={item.src} label={labelFromSrc(item.src)} onClick={() => openLightbox(i)} />
-                    : <PhotoCard src={item.src} label={labelFromSrc(item.src)} onClick={() => openLightbox(i)} />
+                    ? <VideoCard src={item.src} label={labelFromCategory(item.category)} onClick={() => openLightbox(i)} />
+                    : <PhotoCard src={item.src} label={labelFromCategory(item.category)} onClick={() => openLightbox(i)} />
                   }
                 </div>
               ))
