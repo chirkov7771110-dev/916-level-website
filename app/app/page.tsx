@@ -12,14 +12,14 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "LocalBusiness",
-      "@id": "https://www.916level.com/#business",
+      "@id": "https://www.916levelceramic.com/#business",
       "name": "916Level",
       "description":
         "Professional ceramic coating, paint correction, and scratch removal in Roseville, CA. Serving Roseville, Sacramento, and all of Placer County.",
-      "url": "https://www.916level.com",
+      "url": "https://www.916levelceramic.com",
       "telephone": "+19167101157",
       "email": "916levelceramiccoating@gmail.com",
-      "image": "https://www.916level.com/og-image.jpg",
+      "image": "https://www.916levelceramic.com/og-image.jpg",
       "priceRange": "$$",
       "currenciesAccepted": "USD",
       "paymentAccepted": "Cash, Credit Card",
@@ -133,19 +133,19 @@ const jsonLd = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://www.916level.com/#website",
-      "url": "https://www.916level.com",
+      "@id": "https://www.916levelceramic.com/#website",
+      "url": "https://www.916levelceramic.com",
       "name": "916Level",
       "description": "Ceramic Coating & Paint Correction — Roseville, CA",
-      "publisher": { "@id": "https://www.916level.com/#business" },
+      "publisher": { "@id": "https://www.916levelceramic.com/#business" },
     },
     {
       "@type": "WebPage",
-      "@id": "https://www.916level.com/#webpage",
-      "url": "https://www.916level.com",
+      "@id": "https://www.916levelceramic.com/#webpage",
+      "url": "https://www.916levelceramic.com",
       "name": "916Level — Ceramic Coating & Paint Correction | Roseville, CA",
-      "isPartOf": { "@id": "https://www.916level.com/#website" },
-      "about": { "@id": "https://www.916level.com/#business" },
+      "isPartOf": { "@id": "https://www.916levelceramic.com/#website" },
+      "about": { "@id": "https://www.916levelceramic.com/#business" },
       "description":
         "916Level is Roseville's premier ceramic coating and paint correction specialist serving Roseville, Sacramento, and Placer County.",
       "breadcrumb": {
@@ -155,7 +155,7 @@ const jsonLd = {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://www.916level.com",
+            "item": "https://www.916levelceramic.com",
           },
         ],
       },

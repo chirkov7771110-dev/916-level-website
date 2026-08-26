@@ -8,7 +8,7 @@ const geist = Geist({
   display: "swap",
 });
 
-const SITE_URL = "https://www.916level.com";
+const SITE_URL = "https://www.916levelceramic.com";
 const BUSINESS_NAME = "916Level";
 const TITLE = "916Level — Ceramic Coating & Paint Correction | Roseville, CA";
 const DESCRIPTION =

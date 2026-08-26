@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://www.916level.com/sitemap.xml",
-    host: "https://www.916level.com",
+    sitemap: "https://www.916levelceramic.com/sitemap.xml",
+    host: "https://www.916levelceramic.com",
   };
 }
