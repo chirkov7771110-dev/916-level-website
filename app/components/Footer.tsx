@@ -46,9 +46,9 @@ export default function Footer() {
 
           {/* Services */}
           <nav aria-label="Services navigation">
-            <h2 className="text-white text-xs font-semibold tracking-[0.25em] uppercase mb-4">
+            <p className="text-white text-xs font-semibold tracking-[0.25em] uppercase mb-4">
               Services
-            </h2>
+            </p>
             <ul className="space-y-0">
               {[
                 { label: "Ceramic Coating", section: "#services" },
@@ -71,9 +71,9 @@ export default function Footer() {
 
           {/* Service Area */}
           <div>
-            <h2 className="text-white text-xs font-semibold tracking-[0.25em] uppercase mb-4">
+            <p className="text-white text-xs font-semibold tracking-[0.25em] uppercase mb-4">
               Service Area
-            </h2>
+            </p>
             <ul className="space-y-2">
               {[
                 "Roseville, CA",
