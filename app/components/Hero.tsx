@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 const HERO_VIDEOS = [
-  "/images/gallery/video_2026-05-23_19-23-15.mp4",
+  "/media/gallery/video_2026-05-23_19-23-15.mp4",
   "/images/gallery/video_2026-05-23_19-23-24.mp4",
   "/images/gallery/video_2026-05-23_19-24-17.mp4",
 ];
