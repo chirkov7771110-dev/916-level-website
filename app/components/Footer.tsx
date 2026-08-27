@@ -54,7 +54,7 @@ export default function Footer() {
                 { label: "Ceramic Coating", section: "#services" },
                 { label: "Paint Correction", section: "#services" },
                 { label: "Scratch Removal",  section: "#services" },
-                { label: "Full Detail",       section: "#services" },
+                { label: "Headlight Restoration", section: "#services" },
               ].map((s) => (
                 <li key={s.label}>
                   <button
