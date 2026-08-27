@@ -123,7 +123,7 @@ const SERVICES = [
 ];
 
 const STATS = [
-  { value: "500+",       label: "Vehicles Serviced" },
+  { value: "3-Stage",    label: "Paint Correction" },
   { value: "Free",       label: "Photo Estimates" },
   { value: "Placer County", label: "Service Area" },
   { value: "8 yr",       label: "Max Coating Life" },
