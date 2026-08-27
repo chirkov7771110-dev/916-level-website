@@ -95,10 +95,6 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
 
-  verification: {
-    google: "",   // add Google Search Console token when available
-  },
-
   category: "automotive",
 };
 
