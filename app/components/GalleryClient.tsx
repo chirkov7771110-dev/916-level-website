@@ -20,14 +20,6 @@ const TABS: { value: FilterValue; label: string }[] = [
   { value: "headlights", label: "Headlight Restoration"   },
 ];
 
-function labelFromSrc(src: string): string {
-  return src
-    .split("/")
-    .pop()!
-    .replace(/\.[^.]+$/, "")
-    .replace(/_/g, " ");
-}
-
 const CATEGORY_LABEL: Record<MediaItem["category"], string> = {
   ceramic: "Ceramic coating",
   correction: "Paint correction",
@@ -201,13 +193,13 @@ function Lightbox({
             controls
             playsInline
             className="max-w-full max-h-[90vh] w-auto h-auto"
-            aria-label={labelFromSrc(item.src)}
+            aria-label={labelFromCategory(item.category)}
           />
         ) : (
           <div className="relative w-[95vw] h-[90vh]">
             <Image
               src={item.src}
-              alt={labelFromSrc(item.src)}
+              alt={labelFromCategory(item.category)}
               fill
               className="object-contain"
               sizes="95vw"
