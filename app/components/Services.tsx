@@ -7,7 +7,7 @@ const SERVICES = [
     title: "Ceramic Coating",
     tagline: "Ultimate Paint Protection",
     description:
-      "A professional-grade nano-ceramic layer permanently bonds to your paint, creating a hydrophobic shield that repels water, dirt, and UV rays. Keeps your car looking new for years.",
+      "Professional ceramic coating in Roseville, CA that bonds to your vehicle’s paint, creating a hydrophobic layer that helps repel water, dirt, and UV exposure while making the finish easier to maintain.",
     features: [
       "2–8 year protection",
       "Hydrophobic water beading",
@@ -27,7 +27,7 @@ const SERVICES = [
     title: "Paint Correction",
     tagline: "Restore Factory Perfection",
     description:
-      "Machine polishing removes swirl marks, fine scratches, oxidation, and water spots that dull your paint. We restore clarity and gloss that makes your vehicle look brand new.",
+      "Professional paint correction services in Roseville, CA to reduce swirl marks, fine scratches, oxidation, and water spots while restoring clarity, depth, and gloss to your vehicle’s paint.",
     features: [
       "Single & multi-stage correction",
       "Swirl & scratch removal",
@@ -47,7 +47,7 @@ const SERVICES = [
     title: "Scratch Removal",
     tagline: "Erase the Damage",
     description:
-      "From light surface scuffs to deeper clear-coat scratches, we assess and eliminate paint damage that ruins your vehicle's appearance. Professional results without a full repaint.",
+      "Professional scratch removal and paint scratch repair in Roseville, CA for surface scuffs, paint transfer, and clear-coat scratches. Deeper damage is assessed individually for the best possible improvement.",
     features: [
       "Clear coat scratch repair",
       "Scuff & buffer mark removal",
