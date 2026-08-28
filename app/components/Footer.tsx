@@ -100,7 +100,13 @@ export default function Footer() {
             <span>© {year} 916Level — Ceramic Coating &amp; Paint Correction.</span>{" "}
             <span>Roseville, CA. All rights reserved.</span>
           </p>
-          <nav aria-label="Social media links">
+          <nav aria-label="Footer links" className="flex items-center gap-4">
+            <a
+              href="/privacy"
+              className="text-[#3a3a3a] hover:text-[#c0c0c0] text-xs tracking-widest uppercase transition-colors"
+            >
+              Privacy Policy
+            </a>
             <a
               href="https://www.instagram.com/916level?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
               target="_blank"
