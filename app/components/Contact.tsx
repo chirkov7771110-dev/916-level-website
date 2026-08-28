@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useForm, ValidationError } from "@formspree/react";
+import { trackLead } from "@/lib/tracking";
 
 const SERVICES_OPTIONS = [
   "Ceramic Coating",
@@ -16,6 +17,14 @@ const SERVICES_OPTIONS = [
 export default function Contact() {
   const [state, handleSubmit] = useForm("xlgvlvzv");
   const localTimeRef = useRef<HTMLInputElement>(null);
+  const leadTrackedRef = useRef(false);
+
+  useEffect(() => {
+    if (!state.succeeded || leadTrackedRef.current) return;
+
+    leadTrackedRef.current = true;
+    trackLead();
+  }, [state.succeeded]);
 
   function handleSubmitWithTime(e: React.FormEvent<HTMLFormElement>) {
     if (localTimeRef.current) {
