@@ -34,13 +34,25 @@ export default function Footer() {
             </p>
             <a
               href="sms:+19167413588"
-              className="inline-flex items-center gap-2 text-[#c0c0c0] hover:text-white text-sm font-medium transition-colors"
+              className="inline-flex md:hidden items-center gap-2 text-[#c0c0c0] hover:text-white text-sm font-medium transition-colors"
               aria-label="Text 916Level"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
               Text Us
+            </a>
+            <a
+              href="https://wa.me/19164627323"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex items-center gap-2 text-[#c0c0c0] hover:text-white text-sm font-medium transition-colors"
+              aria-label="Message 916Level on WhatsApp"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              WhatsApp
             </a>
           </div>
 

@@ -76,21 +76,41 @@ export default function Contact() {
 
             {/* Contact details */}
             <address className="not-italic space-y-6 mb-10">
-              <a
-                href="sms:+19167413588"
-                className="flex items-center gap-4 group"
-                aria-label="Text 916Level"
-              >
-                <div className="w-11 h-11 border border-[#2a2a2a] flex items-center justify-center group-hover:border-[#c0c0c0] transition-colors duration-200 flex-shrink-0" aria-hidden="true">
-                  <svg className="w-4 h-4 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-xs text-[#6b6b6b] tracking-widest uppercase mb-0.5">Text</p>
-                  <p className="text-white text-lg font-semibold group-hover:text-[#c0c0c0] transition-colors">Text Us</p>
-                </div>
-              </a>
+              <div>
+                <a
+                  href="sms:+19167413588"
+                  className="flex md:hidden items-center gap-4 group"
+                  aria-label="Text 916Level"
+                >
+                  <div className="w-11 h-11 border border-[#2a2a2a] flex items-center justify-center group-hover:border-[#c0c0c0] transition-colors duration-200 flex-shrink-0" aria-hidden="true">
+                    <svg className="w-4 h-4 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-xs text-[#6b6b6b] tracking-widest uppercase mb-0.5">Text</p>
+                    <p className="text-white text-lg font-semibold group-hover:text-[#c0c0c0] transition-colors">Text Us</p>
+                  </div>
+                </a>
+
+                <a
+                  href="https://wa.me/19164627323"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden md:flex items-center gap-4 group"
+                  aria-label="Message 916Level on WhatsApp"
+                >
+                  <div className="w-11 h-11 border border-[#2a2a2a] flex items-center justify-center group-hover:border-[#c0c0c0] transition-colors duration-200 flex-shrink-0" aria-hidden="true">
+                    <svg className="w-4 h-4 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-xs text-[#6b6b6b] tracking-widest uppercase mb-0.5">Message</p>
+                    <p className="text-white text-lg font-semibold group-hover:text-[#c0c0c0] transition-colors">WhatsApp</p>
+                  </div>
+                </a>
+              </div>
 
               <div className="flex items-center gap-4">
                 <div className="w-11 h-11 border border-[#2a2a2a] flex items-center justify-center flex-shrink-0" aria-hidden="true">

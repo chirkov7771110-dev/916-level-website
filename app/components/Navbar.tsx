@@ -82,11 +82,13 @@ export default function Navbar() {
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-4">
               <a
-                href="sms:+19167413588"
+                href="https://wa.me/19164627323"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-sm text-[#c0c0c0] hover:text-white transition-colors tracking-wide"
-                aria-label="Text 916Level"
+                aria-label="Message 916Level on WhatsApp"
               >
-                Text Us
+                WhatsApp
               </a>
               <button
                 onClick={() => handleNavClick("#contact")}
