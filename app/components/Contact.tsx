@@ -65,8 +65,13 @@ export default function Contact() {
               <span className="text-[#c0c0c0]">Your Vehicle?</span>
             </h2>
 
-            <p className="text-[#a0a0a0] text-base leading-relaxed mb-10">
+            <p className="text-[#a0a0a0] text-base leading-relaxed mb-3">
               Fill out the form and we&apos;ll reach out within 24 hours to discuss your vehicle and schedule your ceramic coating, paint correction, or detailing service in Roseville or Sacramento.
+            </p>
+
+            <p className="text-[#c0c0c0] text-sm leading-relaxed mb-10">
+              Messages welcome in English, <span lang="ru">Русский</span> &amp;{" "}
+              <span lang="uk">Українська</span>
             </p>
 
             {/* Contact details */}
