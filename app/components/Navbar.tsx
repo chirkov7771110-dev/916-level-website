@@ -82,10 +82,11 @@ export default function Navbar() {
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-4">
               <a
-                href="tel:+19167101157"
+                href="sms:+19167413588"
                 className="text-sm text-[#c0c0c0] hover:text-white transition-colors tracking-wide"
+                aria-label="Text 916Level"
               >
-                (916) 710-1157
+                Text Us
               </a>
               <button
                 onClick={() => handleNavClick("#contact")}
@@ -125,8 +126,12 @@ export default function Navbar() {
               </button>
             ))}
             <div className="pt-4 border-t border-[#2a2a2a] flex flex-col gap-3">
-              <a href="tel:+19167101157" className="text-[#c0c0c0] text-sm tracking-wide">
-                (916) 710-1157
+              <a
+                href="sms:+19167413588"
+                className="text-[#c0c0c0] text-sm tracking-wide"
+                aria-label="Text 916Level"
+              >
+                Text Us
               </a>
               <button
                 onClick={() => handleNavClick("#contact")}
@@ -142,13 +147,14 @@ export default function Navbar() {
       {/* Mobile sticky bottom bar */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 flex border-t border-[#2a2a2a] bg-[#0a0a0a]/98 backdrop-blur-md">
         <a
-          href="tel:+19167101157"
+          href="sms:+19167413588"
           className="flex-1 flex items-center justify-center gap-2 py-4 text-sm font-semibold tracking-widest uppercase text-[#c0c0c0] border-r border-[#2a2a2a]"
+          aria-label="Text 916Level"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
-          Call Now
+          Text Us
         </a>
         <button
           onClick={() => handleNavClick("#contact")}

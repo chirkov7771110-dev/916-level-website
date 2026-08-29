@@ -17,7 +17,6 @@ const jsonLd = {
       "description":
         "Professional ceramic coating, paint correction, and scratch removal in Roseville, CA. Serving Roseville, Sacramento, and all of Placer County.",
       "url": "https://www.916levelceramic.com",
-      "telephone": "+19167101157",
       "email": "916levelceramiccoating@gmail.com",
       "image": "https://www.916levelceramic.com/og-image.jpg",
       "priceRange": "$$",

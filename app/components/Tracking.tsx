@@ -40,8 +40,8 @@ export default function Tracking() {
       const href = link?.getAttribute("href")?.trim();
       if (!href) return;
 
-      if (href.toLowerCase().startsWith("tel:")) {
-        trackContact("phone");
+      if (href.toLowerCase().startsWith("sms:")) {
+        trackContact("sms");
         return;
       }
 

@@ -1,9 +1,9 @@
-type ContactMethod = "phone" | "whatsapp";
+type ContactMethod = "sms" | "whatsapp";
 
 type Ga4Event =
   | { type: "page_view"; pagePath: string }
   | { type: "generate_lead" }
-  | { type: "contact_phone"; method: "phone" }
+  | { type: "contact_sms"; method: "sms" }
   | { type: "contact_whatsapp"; method: "whatsapp" };
 type MetaEvent = { type: "PageView" } | { type: "Lead" };
 
@@ -101,8 +101,8 @@ export function trackLead() {
 
 export function trackContact(method: ContactMethod) {
   trackGa4Event(
-    method === "phone"
-      ? { type: "contact_phone", method: "phone" }
+    method === "sms"
+      ? { type: "contact_sms", method: "sms" }
       : { type: "contact_whatsapp", method: "whatsapp" },
   );
 }
