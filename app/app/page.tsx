@@ -66,7 +66,7 @@ const jsonLd = {
               "@type": "Service",
               "name": "Ceramic Coating",
               "description":
-                "Professional ceramic coating application in Roseville, CA. Creates a permanent hydrophobic bond that protects your paint for 2–5 years.",
+                "Professional ceramic coating application in Roseville, CA. Creates a permanent hydrophobic bond that protects your paint for 2–10 years.",
               "areaServed": "Roseville, Sacramento, Placer County, CA",
             },
           },
@@ -74,9 +74,9 @@ const jsonLd = {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Paint Correction",
+              "name": "Water Spot Removal",
               "description":
-                "Machine polishing paint correction service in Roseville, CA. Removes swirl marks, fine scratches, and oxidation to restore factory-level gloss.",
+                "Professional water spot removal in Roseville, California, designed to remove mineral deposits and stubborn water spots from your vehicle's paint and exterior surfaces, helping restore a clean, smooth, and glossy finish.",
               "areaServed": "Roseville, Sacramento, Placer County, CA",
             },
           },
@@ -104,7 +104,7 @@ const jsonLd = {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "One-Step Polish",
+              "name": "One-Step Paint Correction",
               "description":
                 "Single-stage machine polish in Roseville, CA that boosts gloss and reduces light paint imperfections.",
               "areaServed": "Roseville, Sacramento, Placer County, CA",

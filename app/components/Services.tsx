@@ -9,12 +9,15 @@ const SERVICES = [
     description:
       "Professional ceramic coating in Roseville, CA that bonds to your vehicle’s paint, creating a hydrophobic layer that helps repel water, dirt, and UV exposure while making the finish easier to maintain.",
     features: [
-      "2–8 year protection",
+      "2–10 year protection",
       "Hydrophobic water beading",
       "UV & oxidation resistance",
       "Enhanced gloss & depth",
       "Swirl-resistant surface",
     ],
+    price: "Starting at $600",
+    priceNote:
+      "$600 starting price applies to a small vehicle with a 2-year ceramic coating. Paint preparation and polishing are included.",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -22,19 +25,22 @@ const SERVICES = [
     ),
   },
   {
-    id: "correction",
+    id: "water-spots",
     number: "02",
-    title: "Paint Correction",
-    tagline: "Restore Factory Perfection",
+    title: "Water Spot Removal",
+    tagline: "Remove Mineral Deposits & Water Spots",
     description:
-      "Professional paint correction services in Roseville, CA to reduce swirl marks, fine scratches, oxidation, and water spots while restoring clarity, depth, and gloss to your vehicle’s paint.",
+      "Professional water spot removal in Roseville, California, designed to remove mineral deposits and stubborn water spots from your vehicle's paint and exterior surfaces, helping restore a clean, smooth, and glossy finish.",
     features: [
-      "Single & multi-stage correction",
-      "Swirl & scratch removal",
-      "Oxidation elimination",
-      "Mirror-like gloss finish",
-      "Pre-coating preparation",
+      "Mineral deposit removal",
+      "Water spot removal from paint",
+      "Exterior surface treatment",
+      "Restores clarity and gloss",
+      "Treatment based on severity and affected area",
     ],
+    price: "Starting at $150",
+    priceNote:
+      "Final pricing depends on the affected area and severity of the water spots.",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -55,6 +61,9 @@ const SERVICES = [
       "Panel-specific treatment",
       "No sanding visible panels",
     ],
+    price: "Starting at $100",
+    priceNote:
+      "Final pricing depends on the depth, size, and severity of the damage.",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -75,6 +84,7 @@ const SERVICES = [
       "6-month guarantee",
       "Ceramic headlight protection available",
     ],
+    price: "$100 / pair",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10l9-6 9 6M4 10v9a1 1 0 001 1h4v-6h6v6h4a1 1 0 001-1v-9M9 14h1.5" />
@@ -84,7 +94,7 @@ const SERVICES = [
   {
     id: "onestep",
     number: "05",
-    title: "One-Step Polish",
+    title: "One-Step Paint Correction",
     tagline: "Enhanced Gloss, Single Stage",
     description:
       "A single-stage machine polish that boosts gloss and reduces light paint imperfections.",
@@ -94,6 +104,7 @@ const SERVICES = [
       "Reduces light paint imperfections",
       "Machine-applied",
     ],
+    price: "Starting at $200",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636M12 8a4 4 0 100 8 4 4 0 000-8z" />
@@ -114,6 +125,7 @@ const SERVICES = [
       "Maximum clarity & gloss",
       "Ceramic coating preparation",
     ],
+    price: "Starting at $300",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3l8 4-8 4-8-4 8-4zM4 11l8 4 8-4M4 15l8 4 8-4" />
@@ -126,7 +138,7 @@ const STATS = [
   { value: "3-Stage",    label: "Paint Correction" },
   { value: "Free",       label: "Photo Estimates" },
   { value: "Placer County", label: "Service Area" },
-  { value: "8 yr",       label: "Max Coating Life" },
+  { value: "10 yr",      label: "Max Coating Life" },
 ];
 
 function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
@@ -184,6 +196,18 @@ function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
             </li>
           ))}
         </ul>
+
+        {/* Price */}
+        <div>
+          <p className="text-white text-sm font-bold tracking-widest uppercase">
+            {service.price}
+          </p>
+          {"priceNote" in service && service.priceNote && (
+            <p className="mt-2 text-[#6b6b6b] text-xs leading-relaxed">
+              {service.priceNote}
+            </p>
+          )}
+        </div>
       </div>
 
       {/* CTA */}
@@ -235,6 +259,10 @@ export default function Services() {
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
+
+        <p className="mt-6 text-center text-xs leading-relaxed text-[#8a8a8a]">
+          Starting prices apply to smaller vehicles. Final pricing may vary based on vehicle size, paint condition, and the amount of correction required.
+        </p>
 
         {/* Stats */}
         <dl className="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-[#2a2a2a]" aria-label="Business statistics">
