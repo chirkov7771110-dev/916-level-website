@@ -1,0 +1,232 @@
+[
+  {
+    "type": "video",
+    "src": "/media/gallery/01_video_2026-05-26_20-50-08.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/02_video_2026-05-26_20-50-13.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/03_video_2026-05-26_20-50-17.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/04_video_2026-05-26_20-49-28.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/05_video_2026-05-23_19-23-24.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/06_video_2026-05-23_19-24-24.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/07_video_2026-05-23_19-24-21.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/08_video_2026-07-13_20-05-52.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "image",
+    "src": "/media/gallery/photo_2026-05-25_23-28-23.jpg",
+    "category": "gallery"
+  },
+  {
+    "type": "image",
+    "src": "/media/gallery/photo_2026-05-25_23-28-28.jpg",
+    "category": "gallery"
+  },
+  {
+    "type": "image",
+    "src": "/media/gallery/photo_2026-05-28_22-39-28.jpg",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/video_2026-05-23_19-23-15.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/video_2026-05-23_19-23-29.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/video_2026-05-23_19-24-17.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/video_2026-05-23_19-24-29.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/video_2026-05-23_19-24-34.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/video_2026-05-23_19-24-38.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/video_2026-05-23_19-24-42.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/video_2026-05-23_19-24-55.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/video_2026-05-26_20-50-20.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/gallery/video_2026-06-28_23-31-51.mp4",
+    "category": "gallery"
+  },
+  {
+    "type": "video",
+    "src": "/media/ceramic-coating/v3-user-review-v6.mp4",
+    "category": "ceramic"
+  },
+  {
+    "type": "video",
+    "src": "/media/ceramic-coating/video_2026-05-23_19-24-55.mp4",
+    "category": "ceramic"
+  },
+  {
+    "type": "video",
+    "src": "/media/ceramic-coating/video_2026-05-26_20-49-28.mp4",
+    "category": "ceramic"
+  },
+  {
+    "type": "video",
+    "src": "/media/ceramic-coating/video_2026-05-26_20-50-08.mp4",
+    "category": "ceramic"
+  },
+  {
+    "type": "video",
+    "src": "/media/ceramic-coating/video_2026-05-26_20-50-13.mp4",
+    "category": "ceramic"
+  },
+  {
+    "type": "video",
+    "src": "/media/ceramic-coating/video_2026-05-26_20-50-17.mp4",
+    "category": "ceramic"
+  },
+  {
+    "type": "video",
+    "src": "/media/ceramic-coating/video_2026-05-26_20-50-20.mp4",
+    "category": "ceramic"
+  },
+  {
+    "type": "video",
+    "src": "/media/paint-correction/video_2026-05-23_19-23-15.mp4",
+    "category": "correction"
+  },
+  {
+    "type": "video",
+    "src": "/media/paint-correction/video_2026-05-23_19-24-24.mp4",
+    "category": "correction"
+  },
+  {
+    "type": "video",
+    "src": "/media/paint-correction/video_2026-05-27_00-15-05.mp4",
+    "category": "correction"
+  },
+  {
+    "type": "video",
+    "src": "/media/paint-correction/video_2026-06-30_22-03-08.mp4",
+    "category": "correction"
+  },
+  {
+    "type": "video",
+    "src": "/media/paint-correction/video_2026-07-13_20-05-52.mp4",
+    "category": "correction"
+  },
+  {
+    "type": "image",
+    "src": "/media/scratch-removal/photo_2026-05-25_23-28-34.jpg",
+    "category": "scratch"
+  },
+  {
+    "type": "image",
+    "src": "/media/scratch-removal/photo_2026-05-25_23-28-37.jpg",
+    "category": "scratch"
+  },
+  {
+    "type": "image",
+    "src": "/media/scratch-removal/photo_2026-05-25_23-28-41.jpg",
+    "category": "scratch"
+  },
+  {
+    "type": "image",
+    "src": "/media/scratch-removal/photo_2026-05-25_23-28-45.jpg",
+    "category": "scratch"
+  },
+  {
+    "type": "video",
+    "src": "/media/scratch-removal/video_2026-05-23_19-24-24.mp4",
+    "category": "scratch"
+  },
+  {
+    "type": "video",
+    "src": "/media/scratch-removal/video_2026-05-23_19-24-34.mp4",
+    "category": "scratch"
+  },
+  {
+    "type": "video",
+    "src": "/media/scratch-removal/video_2026-05-23_19-24-38.mp4",
+    "category": "scratch"
+  },
+  {
+    "type": "video",
+    "src": "/media/scratch-removal/video_2026-06-28_23-31-51.mp4",
+    "category": "scratch"
+  },
+  {
+    "type": "video",
+    "src": "/media/scratch-removal/video_2026-08-23_21-40-51.mp4",
+    "category": "scratch"
+  },
+  {
+    "type": "image",
+    "src": "/media/headlight-restoration/photo_2026-05-28_22-39-03.jpg",
+    "category": "headlights"
+  },
+  {
+    "type": "image",
+    "src": "/media/headlight-restoration/photo_2026-05-28_22-39-22.jpg",
+    "category": "headlights"
+  },
+  {
+    "type": "image",
+    "src": "/media/headlight-restoration/photo_2026-05-28_22-39-28.jpg",
+    "category": "headlights"
+  },
+  {
+    "type": "video",
+    "src": "/media/headlight-restoration/video_2026-05-23_19-23-29.mp4",
+    "category": "headlights"
+  }
+]

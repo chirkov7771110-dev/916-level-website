@@ -1,48 +1,37 @@
-import fs from "fs";
-import path from "path";
 import GalleryClient, { type MediaItem } from "./GalleryClient";
+import mediaManifest from "../generated/media-manifest.json";
 
-const IMAGE_EXTS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
-const VIDEO_EXTS = new Set([".mp4", ".webm", ".mov"]);
-const SKIP       = new Set([".gitkeep", ".ds_store", "thumbs.db"]);
+const MEDIA_TYPES = new Set<MediaItem["type"]>(["image", "video"]);
+const MEDIA_CATEGORIES = new Set<MediaItem["category"]>([
+  "gallery",
+  "ceramic",
+  "correction",
+  "scratch",
+  "headlights",
+]);
 
-function readFolder(
-  folderPath: string,
-  urlPrefix: string,
-  category: MediaItem["category"]
-): MediaItem[] {
-  if (!fs.existsSync(folderPath)) return [];
-  return fs
-    .readdirSync(folderPath)
-    .filter((f) => {
-      if (SKIP.has(f.toLowerCase())) return false;
-      const ext = path.extname(f).toLowerCase();
-      return IMAGE_EXTS.has(ext) || VIDEO_EXTS.has(ext);
-    })
-    .sort()
-    .map((f) => ({
-      type: VIDEO_EXTS.has(path.extname(f).toLowerCase()) ? "video" : "image",
-      src: `${urlPrefix}/${f}`,
-      category,
-    })) as MediaItem[];
+function isMediaItem(item: unknown): item is MediaItem {
+  if (!item || typeof item !== "object") return false;
+
+  const candidate = item as Record<string, unknown>;
+  return (
+    typeof candidate.type === "string" &&
+    MEDIA_TYPES.has(candidate.type as MediaItem["type"]) &&
+    typeof candidate.src === "string" &&
+    candidate.src.startsWith("/media/") &&
+    !candidate.src.includes("\\") &&
+    typeof candidate.category === "string" &&
+    MEDIA_CATEGORIES.has(candidate.category as MediaItem["category"])
+  );
 }
 
+const items: MediaItem[] = mediaManifest.map((item, index) => {
+  if (!isMediaItem(item)) {
+    throw new Error(`Invalid media manifest entry at index ${index}.`);
+  }
+  return item;
+});
+
 export default function Gallery() {
-  const media = path.join(process.cwd(), "public", "media");
-
-  const galleryAll    = readFolder(path.join(media, "gallery"),               "/media/gallery",               "gallery");
-  const ceramic       = readFolder(path.join(media, "ceramic-coating"),       "/media/ceramic-coating",       "ceramic");
-  const correctionAll = readFolder(path.join(media, "paint-correction"),      "/media/paint-correction",      "correction");
-  const scratchAll    = readFolder(path.join(media, "scratch-removal"),       "/media/scratch-removal",       "scratch");
-  const headlightAll  = readFolder(path.join(media, "headlight-restoration"), "/media/headlight-restoration", "headlights");
-
-  const items: MediaItem[] = [
-    ...galleryAll,
-    ...ceramic,
-    ...correctionAll,
-    ...scratchAll,
-    ...headlightAll,
-  ];
-
   return <GalleryClient items={items} />;
 }
