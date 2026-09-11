@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | 916 Level",
-  description: "Privacy Policy for the 916 Level website and quote request form.",
+  description: "Privacy Policy for the 916 Level website and quote request process.",
 };
 
 const sectionClassName = "space-y-3";
@@ -18,7 +19,7 @@ export default function PrivacyPolicyPage() {
             916 Level
           </p>
           <h1 className="text-3xl font-bold text-white sm:text-4xl">Privacy Policy</h1>
-          <p className="text-sm text-[#8a8a8a]">Effective date: August 28, 2026</p>
+          <p className="text-sm text-[#8a8a8a]">Effective date: September 10, 2026</p>
         </header>
 
         <section className={sectionClassName}>
@@ -33,10 +34,10 @@ export default function PrivacyPolicyPage() {
         <section className={sectionClassName}>
           <h2 className={headingClassName}>Information You Provide</h2>
           <p>
-            When you submit the quote request form or contact us, you may provide your name,
-            phone number, email address, and information about your vehicle, requested service,
-            or message. Please do not include sensitive personal information that is not needed
-            for your request.
+            When you contact us by text message, WhatsApp, or email, you may provide contact
+            information, details about your vehicle and requested service, photos, or other
+            message content. Please do not include sensitive personal information that is not
+            needed for your request.
           </p>
         </section>
 
@@ -52,22 +53,25 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className={sectionClassName}>
-          <h2 className={headingClassName}>Quote Form and Formspree</h2>
+          <h2 className={headingClassName}>Quote Requests and Messaging</h2>
           <p>
-            The quote form is processed by Formspree, a third-party form service. Information
-            submitted through the form is transmitted through Formspree and delivered to
-            916 Level at 916levelceramiccoating@gmail.com. We do not operate a separate customer
-            relationship management system or visitor database for these submissions. Formspree
-            processes information under its own privacy practices. You can review the{" "}
-            <a
-              className={linkClassName}
-              href="https://formspree.io/legal/privacy-policy/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Formspree Privacy Policy
-            </a>
-            .
+            The quote tool composes vehicle and service details locally in your browser. The
+            website does not submit or store those quote details itself. When you choose Text or
+            WhatsApp, the prepared message is passed to the messaging service or app you open.
+            WhatsApp receives the prepared message when you open WhatsApp. Text-message content
+            is handled by your messaging app and mobile carrier if you send it.
+          </p>
+          <p>
+            The website itself does not upload or store customer photos. You may choose to attach
+            photos later within your text-message or WhatsApp conversation, where they are handled
+            by the applicable messaging provider and device.
+          </p>
+          <p>
+            The desktop Text option creates a QR code locally in your browser. Its continuation
+            link temporarily carries validated quote details in the URL fragment. The continuation
+            page reads that fragment in the browser, removes it from the visible URL, and keeps the
+            parsed details only in page memory. It does not use cookies, local storage, session
+            storage, or a customer database for those details.
           </p>
         </section>
 
@@ -93,18 +97,19 @@ export default function PrivacyPolicyPage() {
         <section className={sectionClassName}>
           <h2 className={headingClassName}>Analytics and Advertising Technologies</h2>
           <p>
-            We may use Google Analytics 4 and the Meta Pixel in the future to understand website
-            usage and measure advertising performance. If enabled, these services may process
+            We use Google Analytics 4 and the Meta Pixel on normal website pages to understand
+            website usage and measure advertising performance. These services may process
             technical and online activity information such as IP address, browser and device
             information, pages viewed, referral information, interactions with the website,
             cookies, and other online identifiers. Google and Meta may use cookies or similar
             technologies according to their own policies and settings.
           </p>
           <p>
-            We do not send the contents of quote requests—including names, phone
-            numbers, email addresses, vehicle details, service details, or messages—to Google
-            Analytics or Meta as analytics or advertising event data. We do not use Meta
-            Advanced Matching on this website.
+            Our code does not send quote contents—including vehicle details, service selections,
+            generated messages, phone numbers, photos, or other customer message content—to
+            Google Analytics or Meta as analytics or advertising event data. We do not use Meta
+            Advanced Matching on this website. Google Analytics and the Meta Pixel do not run on
+            the Text continuation page at /quote/sms.
           </p>
           <p>
             For more information, review the{" "}
@@ -133,10 +138,10 @@ export default function PrivacyPolicyPage() {
           <h2 className={headingClassName}>How Information Is Shared</h2>
           <p>
             We may share information with service providers that help operate the website,
-            process form submissions, communicate with customers, or provide requested services.
+            communicate with customers, or provide requested services.
             We may also disclose information when reasonably necessary to comply with law,
             protect rights or safety, or investigate misuse. We do
-            not disclose quote-form contents to Google Analytics or Meta for analytics or
+            not disclose quote-request contents to Google Analytics or Meta for analytics or
             advertising measurement.
           </p>
         </section>
@@ -191,9 +196,9 @@ export default function PrivacyPolicyPage() {
           </p>
         </section>
 
-        <a className={linkClassName} href="/">
+        <Link className={linkClassName} href="/">
           Return to 916 Level
-        </a>
+        </Link>
       </article>
     </main>
   );

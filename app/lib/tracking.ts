@@ -2,10 +2,12 @@ type ContactMethod = "sms" | "whatsapp";
 
 type Ga4Event =
   | { type: "page_view"; pagePath: string }
-  | { type: "generate_lead" }
   | { type: "contact_sms"; method: "sms" }
-  | { type: "contact_whatsapp"; method: "whatsapp" };
-type MetaEvent = { type: "PageView" } | { type: "Lead" };
+  | { type: "contact_whatsapp"; method: "whatsapp" }
+  | { type: "quote_start" }
+  | { type: "service_selected" }
+  | { type: "quote_sms_qr_open"; method: "sms" };
+type MetaEvent = { type: "PageView" };
 
 type Gtag = (...args: unknown[]) => void;
 type Fbq = (...args: unknown[]) => void;
@@ -32,6 +34,16 @@ function safePathname(pathname: string) {
   return pathname.split(/[?#]/, 1)[0] || "/";
 }
 
+export function isTrackingExcludedPath(pathname: string) {
+  return pathname === "/quote/sms" || pathname.startsWith("/quote/sms/");
+}
+
+function trackingIsAllowed() {
+  return (
+    typeof window !== "undefined" && !isTrackingExcludedPath(window.location.pathname)
+  );
+}
+
 function sendGa4Event(event: Ga4Event) {
   if (!window.gtag) return;
 
@@ -43,12 +55,17 @@ function sendGa4Event(event: Ga4Event) {
     return;
   }
 
-  if (event.type === "generate_lead") {
-    window.gtag("event", "generate_lead");
+  if (event.type === "contact_sms" || event.type === "contact_whatsapp") {
+    window.gtag("event", event.type, { method: event.method });
     return;
   }
 
-  window.gtag("event", event.type, { method: event.method });
+  if (event.type === "quote_sms_qr_open") {
+    window.gtag("event", "quote_sms_qr_open", { method: "sms" });
+    return;
+  }
+
+  window.gtag("event", event.type);
 }
 
 function sendMetaEvent(event: MetaEvent) {
@@ -56,7 +73,7 @@ function sendMetaEvent(event: MetaEvent) {
 }
 
 function trackGa4Event(event: Ga4Event) {
-  if (!ga4Configured || typeof window === "undefined") return;
+  if (!ga4Configured || !trackingIsAllowed()) return;
 
   if (window.gtag) {
     sendGa4Event(event);
@@ -66,7 +83,7 @@ function trackGa4Event(event: Ga4Event) {
 }
 
 function trackMetaEvent(event: MetaEvent) {
-  if (!metaConfigured || typeof window === "undefined") return;
+  if (!metaConfigured || !trackingIsAllowed()) return;
 
   if (window.fbq) {
     sendMetaEvent(event);
@@ -76,13 +93,21 @@ function trackMetaEvent(event: MetaEvent) {
 }
 
 export function flushGa4TrackingQueue() {
-  if (typeof window === "undefined" || !window.gtag) return;
+  if (!trackingIsAllowed()) {
+    ga4Queue.splice(0);
+    return;
+  }
+  if (!window.gtag) return;
 
   ga4Queue.splice(0).forEach(sendGa4Event);
 }
 
 export function flushMetaTrackingQueue() {
-  if (typeof window === "undefined" || !window.fbq) return;
+  if (!trackingIsAllowed()) {
+    metaQueue.splice(0);
+    return;
+  }
+  if (!window.fbq) return;
 
   metaQueue.splice(0).forEach(sendMetaEvent);
 }
@@ -90,13 +115,10 @@ export function flushMetaTrackingQueue() {
 export function trackPageView(pathname: string) {
   const pagePath = safePathname(pathname);
 
+  if (isTrackingExcludedPath(pagePath)) return;
+
   trackGa4Event({ type: "page_view", pagePath });
   trackMetaEvent({ type: "PageView" });
-}
-
-export function trackLead() {
-  trackGa4Event({ type: "generate_lead" });
-  trackMetaEvent({ type: "Lead" });
 }
 
 export function trackContact(method: ContactMethod) {
@@ -105,4 +127,16 @@ export function trackContact(method: ContactMethod) {
       ? { type: "contact_sms", method: "sms" }
       : { type: "contact_whatsapp", method: "whatsapp" },
   );
+}
+
+export function trackQuoteStart() {
+  trackGa4Event({ type: "quote_start" });
+}
+
+export function trackServiceSelected() {
+  trackGa4Event({ type: "service_selected" });
+}
+
+export function trackSmsQrOpen() {
+  trackGa4Event({ type: "quote_sms_qr_open", method: "sms" });
 }

@@ -6,6 +6,7 @@ import Script from "next/script";
 import {
   flushGa4TrackingQueue,
   flushMetaTrackingQueue,
+  isTrackingExcludedPath,
   trackContact,
   trackPageView,
 } from "@/lib/tracking";
@@ -23,15 +24,22 @@ const validMetaPixelId = /^\d+$/.test(META_PIXEL_ID ?? "")
 export default function Tracking() {
   const pathname = usePathname();
   const trackedPathnameRef = useRef<string | null>(null);
+  const trackingExcluded = isTrackingExcludedPath(pathname);
 
   useEffect(() => {
+    if (trackingExcluded) {
+      trackedPathnameRef.current = null;
+      return;
+    }
     if (trackedPathnameRef.current === pathname) return;
 
     trackedPathnameRef.current = pathname;
     trackPageView(pathname);
-  }, [pathname]);
+  }, [pathname, trackingExcluded]);
 
   useEffect(() => {
+    if (trackingExcluded) return;
+
     function handleContactClick(event: MouseEvent) {
       const target = event.target;
       if (!(target instanceof Element)) return;
@@ -57,7 +65,9 @@ export default function Tracking() {
 
     document.addEventListener("click", handleContactClick);
     return () => document.removeEventListener("click", handleContactClick);
-  }, []);
+  }, [trackingExcluded]);
+
+  if (trackingExcluded) return null;
 
   return (
     <>
