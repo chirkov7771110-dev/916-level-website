@@ -14,7 +14,11 @@ import {
   validateQuoteState,
 } from "@/lib/quote";
 import {
+  trackQuoteReady,
+  trackQuoteSmsClick,
+  trackQuoteSmsQrOpen,
   trackQuoteStart,
+  trackQuoteWhatsAppClick,
   trackServiceSelected,
   trackSmsQrOpen,
 } from "@/lib/tracking";
@@ -40,7 +44,9 @@ export default function Contact() {
   const [smsModalOpen, setSmsModalOpen] = useState(false);
   const [smsContinuationUrl, setSmsContinuationUrl] = useState("");
   const [smsModalMessage, setSmsModalMessage] = useState("");
+  const [smsModalQuotePrepared, setSmsModalQuotePrepared] = useState(false);
   const quoteStartedRef = useRef(false);
+  const quoteReadyTrackedRef = useRef(false);
   const serviceSelectedRef = useRef(false);
   const validation = validateQuoteState(quoteDraft);
   const quote = validation.success ? validation.data : null;
@@ -59,6 +65,13 @@ export default function Contact() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [smsModalOpen]);
+
+  useEffect(() => {
+    if (!quote || quoteReadyTrackedRef.current) return;
+
+    quoteReadyTrackedRef.current = true;
+    trackQuoteReady();
+  }, [quote]);
 
   function handleFirstInteraction() {
     if (quoteStartedRef.current) return;
@@ -94,14 +107,17 @@ export default function Contact() {
 
     setSmsContinuationUrl(buildSmsContinuationUrl(quote, window.location.origin));
     setSmsModalMessage(message);
+    setSmsModalQuotePrepared(true);
     setCopyStatus("idle");
     setSmsModalOpen(true);
     trackSmsQrOpen();
+    trackQuoteSmsQrOpen();
   }
 
   function openGeneralSmsModal() {
     setSmsContinuationUrl(buildGeneralSmsContinuationUrl(window.location.origin));
     setSmsModalMessage(GENERAL_CONTACT_MESSAGE);
+    setSmsModalQuotePrepared(false);
     setCopyStatus("idle");
     setSmsModalOpen(true);
     trackSmsQrOpen();
@@ -345,6 +361,7 @@ export default function Contact() {
                 {quote ? (
                   <a
                     href={smsHref}
+                    onClick={trackQuoteSmsClick}
                     className="flex md:hidden items-center justify-center w-full py-4 px-2 bg-white text-black text-xs sm:text-sm font-bold tracking-widest uppercase hover:bg-[#c0c0c0] transition-colors duration-200"
                   >
                     Text / SMS
@@ -366,6 +383,7 @@ export default function Contact() {
                 {quote ? (
                   <a
                     href={whatsappHref}
+                    onClick={trackQuoteWhatsAppClick}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center w-full py-4 px-2 bg-white text-black text-xs sm:text-sm font-bold tracking-widest uppercase hover:bg-[#c0c0c0] transition-colors duration-200"
@@ -573,6 +591,7 @@ export default function Contact() {
             <div className="grid gap-3">
               <a
                 href={buildSmsHref(smsModalMessage)}
+                onClick={smsModalQuotePrepared ? trackQuoteSmsClick : undefined}
                 className="flex items-center justify-center bg-white px-5 py-3.5 text-sm font-bold uppercase tracking-widest text-black transition-colors hover:bg-[#c0c0c0]"
               >
                 Open Text Message

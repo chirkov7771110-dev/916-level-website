@@ -7,7 +7,16 @@ type Ga4Event =
   | { type: "quote_start" }
   | { type: "service_selected" }
   | { type: "quote_sms_qr_open"; method: "sms" };
-type MetaEvent = { type: "PageView" };
+type MetaEvent =
+  | { type: "PageView" }
+  | {
+      type:
+        | "QuoteStarted"
+        | "QuoteReady"
+        | "QuoteSmsClick"
+        | "QuoteWhatsAppClick"
+        | "QuoteSmsQrOpen";
+    };
 
 type Gtag = (...args: unknown[]) => void;
 type Fbq = (...args: unknown[]) => void;
@@ -69,7 +78,12 @@ function sendGa4Event(event: Ga4Event) {
 }
 
 function sendMetaEvent(event: MetaEvent) {
-  window.fbq?.("track", event.type);
+  if (event.type === "PageView") {
+    window.fbq?.("track", "PageView");
+    return;
+  }
+
+  window.fbq?.("trackCustom", event.type);
 }
 
 function trackGa4Event(event: Ga4Event) {
@@ -131,6 +145,7 @@ export function trackContact(method: ContactMethod) {
 
 export function trackQuoteStart() {
   trackGa4Event({ type: "quote_start" });
+  trackMetaEvent({ type: "QuoteStarted" });
 }
 
 export function trackServiceSelected() {
@@ -139,4 +154,20 @@ export function trackServiceSelected() {
 
 export function trackSmsQrOpen() {
   trackGa4Event({ type: "quote_sms_qr_open", method: "sms" });
+}
+
+export function trackQuoteReady() {
+  trackMetaEvent({ type: "QuoteReady" });
+}
+
+export function trackQuoteSmsClick() {
+  trackMetaEvent({ type: "QuoteSmsClick" });
+}
+
+export function trackQuoteWhatsAppClick() {
+  trackMetaEvent({ type: "QuoteWhatsAppClick" });
+}
+
+export function trackQuoteSmsQrOpen() {
+  trackMetaEvent({ type: "QuoteSmsQrOpen" });
 }
